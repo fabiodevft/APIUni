@@ -45,12 +45,12 @@ namespace NFe.Components.Coplan.SinopMT.h
 
         public override void EmiteNF(string file)
         {
-            xml.Load(file);
-            Input.nfseDadosMsg = xml.InnerXml;
+            XmlDocument.Load(file);
+            Input.nfseDadosMsg = XmlDocument.InnerXml;
 
             string result = string.Empty;
 
-            switch (xml.DocumentElement.Name)
+            switch (XmlDocument.DocumentElement.Name)
             {
                 case "EnviarLoteRpsEnvio":
                     result = Service.RECEPCIONARLOTERPS(Input)?.outputXML;
@@ -71,8 +71,8 @@ namespace NFe.Components.Coplan.SinopMT.h
 
         public override void CancelarNfse(string file)
         {
-            xml.Load(file);
-            Input.nfseDadosMsg = xml.InnerXml;
+            XmlDocument.Load(file);
+            Input.nfseDadosMsg = XmlDocument.InnerXml;
 
             string result = Service.CANCELARNFSE(Input)?.outputXML;
             XmlDocument retornoXML = new XmlDocument();
@@ -85,8 +85,8 @@ namespace NFe.Components.Coplan.SinopMT.h
 
         public override void ConsultarLoteRps(string file)
         {
-            xml.Load(file);
-            Input.nfseDadosMsg = xml.InnerXml;
+            XmlDocument.Load(file);
+            Input.nfseDadosMsg = XmlDocument.InnerXml;
 
             string result = Service.CONSULTARLOTERPS(Input)?.outputXML;
             XmlDocument retornoXML = new XmlDocument();
@@ -104,8 +104,8 @@ namespace NFe.Components.Coplan.SinopMT.h
 
         public override void ConsultarNfse(string file)
         {
-            xml.Load(file);
-            Input.nfseDadosMsg = xml.InnerXml;
+            XmlDocument.Load(file);
+            Input.nfseDadosMsg = XmlDocument.InnerXml;
 
             string result = Service.CONSULTARNFSEFAIXA(Input).outputXML;
             XmlDocument retornoXML = new XmlDocument();
@@ -118,8 +118,8 @@ namespace NFe.Components.Coplan.SinopMT.h
 
         public override void ConsultarNfsePorRps(string file)
         {
-            xml.Load(file);
-            Input.nfseDadosMsg = xml.InnerXml;
+            XmlDocument.Load(file);
+            Input.nfseDadosMsg = XmlDocument.InnerXml;
 
             string result = Service.CONSULTARNFSEPORRPS(Input)?.outputXML;
             XmlDocument retornoXML = new XmlDocument();
@@ -200,7 +200,7 @@ namespace NFe.Components.Coplan.SinopMT.h
             string result = Service.CONSULTARNFSEPORRPS(Input)?.outputXML;
             XmlDocument retornoXML = new XmlDocument();
             retornoXML.Load(Functions.StringXmlToStreamUTF8(result.Trim()));
-
+            
             return retornoXML;
         }
 

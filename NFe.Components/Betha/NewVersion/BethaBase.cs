@@ -117,7 +117,7 @@ namespace NFe.Components.Betha.NewVersion
         {
             Ambiente.IAmbiente service = BethaService as Ambiente.IAmbiente;
 
-            return BethaService.EmiteNF()
+            return BethaService.EmiteNF(xml);
         }
 
         #endregion

@@ -528,8 +528,8 @@ namespace NFe.Validate
             string cRetorna = "";
 
             if (TipoArqXml.nRetornoTipoArq >= 1 && TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
-            {   
-                Validar(ref arquivo)
+            {
+                Validar(ref arquivo);
              
                 if (Retorno != 0)
                 {
