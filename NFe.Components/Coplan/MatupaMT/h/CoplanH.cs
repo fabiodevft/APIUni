@@ -10,7 +10,7 @@ namespace NFe.Components.Coplan.MatupaMT.h
     {
         private nfse_web_service Service = new nfse_web_service();
         private input Input = new input();
-        private XmlDocument XmlDocument = new XmlDocument();
+        private readonly XmlDocument XmlDocument = new XmlDocument();
 
         public override string NameSpaces
         {
@@ -129,6 +129,82 @@ namespace NFe.Components.Coplan.MatupaMT.h
             GerarRetorno(file, result, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+                
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            Input.nfseDadosMsg = xml.InnerXml;
+
+            string result = string.Empty;
+
+            switch (xml.DocumentElement.Name)
+            {
+                case "EnviarLoteRpsEnvio":
+                    result = Service.RECEPCIONARLOTERPS(Input)?.outputXML;
+                    break;
+
+                case "EnviarLoteRpsSincronoEnvio":
+                    result = Service.RECEPCIONARLOTERPSSINCRONO(Input)?.outputXML;
+                    break;
+            }
+
+            XmlDocument retornoXML = new XmlDocument();
+            retornoXML.Load(Functions.StringXmlToStreamUTF8(result.Trim()));
+
+            return retornoXML;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+           Input.nfseDadosMsg = xml.InnerXml;
+
+            string result = Service.CANCELARNFSE(Input)?.outputXML;
+            XmlDocument retornoXML = new XmlDocument();
+            retornoXML.Load(Functions.StringXmlToStreamUTF8(result.Trim()));
+
+            return retornoXML;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            Input.nfseDadosMsg = xml.InnerXml;
+
+            string result = Service.CONSULTARLOTERPS(Input)?.outputXML;
+            XmlDocument retornoXML = new XmlDocument();
+            retornoXML.Load(Functions.StringXmlToStreamUTF8(result.Trim()));
+
+            return retornoXML;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new System.Exception("Padrão COPLAN não disponibiliza a consulta situação do lote por RPS.");
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {            
+            Input.nfseDadosMsg = xml.InnerXml;
+
+            string result = Service.CONSULTARNFSEFAIXA(Input).outputXML;
+            XmlDocument retornoXML = new XmlDocument();
+            retornoXML.Load(Functions.StringXmlToStreamUTF8(result.Trim()));
+
+            return retornoXML;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {            
+            Input.nfseDadosMsg = xml.InnerXml;
+
+            string result = Service.CONSULTARNFSEPORRPS(Input)?.outputXML;
+            XmlDocument retornoXML = new XmlDocument();
+            retornoXML.Load(Functions.StringXmlToStreamUTF8(result.Trim()));
+
+            return retornoXML;
+        }
+
+        #endregion
 
         #endregion Métodos
     }

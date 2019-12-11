@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using NFe.Components.Abstract;
 using NFe.Components.br.com.etransparencia.nfehomologacao.h;
 
+
 namespace NFe.Components.Conam.VarginhaMG.h
 {
     public class ConamH : EmiteNFSeBase
@@ -37,14 +38,15 @@ namespace NFe.Components.Conam.VarginhaMG.h
         #endregion
 
         #region Métodos
+
         private string Url(string cidade)
         {
             if (tpAmb == TipoAmbiente.taHomologacao)
                 return "https://nfehomologacao.etransparencia.com.br/" + cidade + "/webservice/aws_nfe.aspx";
             else
                 return "https://nfe.etransparencia.com.br/" + cidade + "/webservice/aws_nfe.aspx";
-
         }
+
         private ws_nfe _service = null;
         private ws_nfe service
         {
@@ -144,6 +146,71 @@ namespace NFe.Components.Conam.VarginhaMG.h
             throw new Exceptions.ServicoInexistenteException();
         }
 
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            Sdt_ProcessarpsIn oProcessaRpsIn = ReadXML<Sdt_ProcessarpsIn>(xml);
+            Sdt_ProcessarpsOut result = service.PROCESSARPS(oProcessaRpsIn);
+
+            string strResult = base.CreateXML(result);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            Sdt_CancelaNFE oCancelaNFE = ReadXML<Sdt_CancelaNFE>(xml);
+            Sdt_RetornoCancelaNFE result = service.CANCELANOTAELETRONICA(oCancelaNFE);
+
+            string strResult = base.CreateXML(result);
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            SDT_ConsultaProtocoloIn oConsultaLoteRps = ReadXML<SDT_ConsultaProtocoloIn>(xml);
+            SDT_ConsultaNotasProtocoloOut result = service.CONSULTANOTASPROTOCOLO(oConsultaLoteRps);
+
+            string strResult = base.CreateXML(result);
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            SDT_ConsultaProtocoloIn oConsultaProtocolo = ReadXML<SDT_ConsultaProtocoloIn>(xml);
+            SDT_ConsultaProtocoloOut result = service.CONSULTAPROTOCOLO(oConsultaProtocolo);
+
+            string strResult = base.CreateXML(result);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        #endregion
+
+
         private T ReadXML<T>(string file)
             where T : new()
         {
@@ -152,6 +219,26 @@ namespace NFe.Components.Conam.VarginhaMG.h
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
             XmlNodeList nodes = doc.GetElementsByTagName((tpAmb == TipoAmbiente.taProducao?"nfe:":"") + result.GetType().Name);
+
+            if (nodes.Count == 0)
+                nodes = doc.GetElementsByTagName(result.GetType().Name);
+
+            object rps = result;
+            string tagName = rps.GetType().Name;
+            if (nodes[0] == null) throw new Exception("Tag <" + tagName + "> não encontrada");
+
+            XmlNode node = nodes[0];
+            ReadXML(node, rps, tagName);
+
+            return result;
+        }
+
+        private T ReadXML<T>(XmlDocument doc)
+            where T : new()
+        {
+            T result = new T();
+
+            XmlNodeList nodes = doc.GetElementsByTagName((tpAmb == TipoAmbiente.taProducao ? "nfe:" : "") + result.GetType().Name);
 
             if (nodes.Count == 0)
                 nodes = doc.GetElementsByTagName(result.GetType().Name);

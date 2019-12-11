@@ -120,6 +120,91 @@ namespace NFe.Components.Fiorilli.CorumbaMS.p
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
 
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string strResult = string.Empty;
+            switch (xml.DocumentElement.Name)
+            {
+                case "GerarNfseEnvio":
+                    strResult = EnvioSincrono(xml);
+                    break;
+
+                case "EnviarLoteRpsSincronoEnvio":
+                    strResult = EnvioSincronoEmLote(xml);
+                    break;
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        private string EnvioSincrono(XmlDocument xml)
+        {
+            GerarNfseEnvio envio = DeserializarObjeto<GerarNfseEnvio>(xml);
+            return SerializarObjeto(Service.gerarNfse(envio, UsuarioWs, SenhaWs));
+        }
+
+        private string EnvioSincronoEmLote(XmlDocument xml)
+        {
+            EnviarLoteRpsSincronoEnvio envio = DeserializarObjeto<EnviarLoteRpsSincronoEnvio>(xml);
+            return SerializarObjeto(Service.recepcionarLoteRpsSincrono(envio, UsuarioWs, SenhaWs));
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            CancelarNfseEnvio envio = DeserializarObjeto<CancelarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.cancelarNfse(envio, UsuarioWs, SenhaWs));
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            ConsultarLoteRpsEnvio envio = DeserializarObjeto<ConsultarLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.consultarLoteRps(envio, UsuarioWs, SenhaWs));
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            ConsultarNfseServicoPrestadoEnvio envio = DeserializarObjeto<ConsultarNfseServicoPrestadoEnvio>(xml);
+            string strResult = SerializarObjeto(Service.consultarNfseServicoPrestado(envio, UsuarioWs, SenhaWs));
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.consultarNfsePorRps(envio, UsuarioWs, SenhaWs));
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        #endregion
+
         #endregion Métodos
     }
 }

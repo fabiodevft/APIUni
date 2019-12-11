@@ -366,6 +366,7 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.FIORILLI:
 
                         Fiorilli fiorilli = new Fiorilli((TipoAmbiente)Empresas.Configuracoes[empAux].AmbienteCodigo,
+                                                        "",
                                                          oDadosEnvLoteRps.cMunicipio,
                                                          Empresas.Configuracoes[empAux].UsuarioWS,
                                                          Empresas.Configuracoes[empAux].SenhaWS,
@@ -385,7 +386,7 @@ namespace NFe.Service.NFSe
                             throw new Exception(resValidacao);
                         }
 
-                        fiorilli.EmiteNF(NomeArquivoXML);
+                        fiorilli.EmiteNF(ConteudoXML);
                         break;
 
                     #endregion

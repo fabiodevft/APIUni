@@ -1,5 +1,6 @@
 ﻿using NFe.Components.Abstract;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Components.Coplan
 {
@@ -117,6 +118,41 @@ namespace NFe.Components.Coplan
         {
             CoplanService.ConsultarNfsePorRps(file);
         }
+
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return CoplanService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return CoplanService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return CoplanService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return CoplanService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return CoplanService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return CoplanService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
 
         #endregion Métodos
     }

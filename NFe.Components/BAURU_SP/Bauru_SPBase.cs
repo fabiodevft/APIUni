@@ -1,4 +1,5 @@
 ﻿using NFe.Components.Abstract;
+using System.Xml;
 
 namespace NFe.Components.BAURU_SP
 {
@@ -59,6 +60,41 @@ namespace NFe.Components.BAURU_SP
         {
             Bauru_SPService.ConsultarNfsePorRps(file);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return Bauru_SPService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return Bauru_SPService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return Bauru_SPService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return Bauru_SPService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return Bauru_SPService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return Bauru_SPService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
+
         #endregion
 
 

@@ -56,6 +56,29 @@ namespace NFe.Components.Abstract
         }
 
         /// <summary>
+        /// Deserializar o objeto para string
+        /// </summary>
+        /// <typeparam name="T">Tipo do objeto</typeparam>
+        /// <param name="xml">arquivo XmlDocument</param>
+        /// <returns></returns>
+        public T DeserializarObjeto<T>(XmlDocument xml)
+            where T : new()
+        {
+            T envio = new T();
+
+            XmlRootAttribute xRoot = new XmlRootAttribute();
+            xRoot.ElementName = envio.GetType().Name;
+            xRoot.Namespace = NameSpaces;
+
+            XmlTextReader textReader = new XmlTextReader(xml.OuterXml);
+            XmlSerializer serializer = new XmlSerializer(typeof(T), xRoot);
+                        
+            envio = (T)serializer.Deserialize(textReader);
+            
+            return envio;
+        }
+
+        /// <summary>
         /// Serializar o objeto para XML
         /// </summary>
         /// <typeparam name="T">Tipo do objeto que será serializado</typeparam>

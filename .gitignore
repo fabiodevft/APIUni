@@ -3,3 +3,22 @@
 ################################################################################
 
 /MetroFramework/MetroFramework.Fonts/obj/Debug
+/MetroFramework/MetroFramework.Design/obj/Debug
+/MetroFramework/MetroFramework.Demo/obj/Debug
+/MetroFramework/MetroFramework/obj/Debug
+/.vs/uninfe
+/NFe.API/obj
+/NFe.Certificado/obj/Debug
+/NFe.Components.Wsdl/obj/Debug
+/NFe.ConvertCFe/obj/Debug
+/NFe.ConvertTxt/obj/Debug
+/NFe.Settings/obj/Debug
+/NFe.Threadings/obj/Debug
+/NFe.UI/obj/Debug
+/NFe.Validate/obj/Debug
+/uninfe/obj/Debug
+/UniNFeServico/obj/Release
+/uninfe_ws/obj/Debug
+/NFe.Components/obj/Debug
+/NFe.Components.Info/obj/Debug
+/NFe.Service/obj/Debug

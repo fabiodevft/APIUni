@@ -96,6 +96,41 @@ namespace NFe.Components.Consist
         {
             ConsistService.ConsultarNfsePorRps(file);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return ConsistService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return ConsistService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return ConsistService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return ConsistService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return ConsistService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return ConsistService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
+
         #endregion
 
 

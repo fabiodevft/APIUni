@@ -100,6 +100,74 @@ namespace NFe.Components.Consist.PatosdeMinasMG.h
             throw new Exceptions.ServicoInexistenteException();
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            eISSWService_RetornoEmiteNFe result = null;
+            result = service.EmiteNFe(Convert.ToInt32(UsuarioWs),
+                                      SenhaWs,
+                                      ReadXML<eISSWService_NFeInfo>(xml));
+
+            string strResult = base.CreateXML(result);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            eISSWService_RetornoCancelaNFe result = null;
+            result = service.CancelaNFe(Convert.ToInt32(UsuarioWs),
+                                        SenhaWs,
+                                        Convert.ToInt32(GetValueXML(xml, "CancelaNFe", "numNota")),
+                                        GetValueXML(xml, "CancelaNFe", "motivo"));
+
+            string strResult = base.CreateXML(result);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            eISSWService_RetornoConsultaNFe result = null;
+            result = service.ConsultaNFe(Convert.ToInt32(UsuarioWs),
+                                         SenhaWs,
+                                         Convert.ToInt32(GetValueXML(xml, "ConsultaNFe", "numNota")),
+                                         Convert.ToInt32(GetValueXML(xml, "ConsultaNFe", "numRPS")));
+
+            string strResult = base.CreateXML(result);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        #endregion
+
+
         private T ReadXML<T>(string file)
             where T : new()
         {
@@ -108,10 +176,35 @@ namespace NFe.Components.Consist.PatosdeMinasMG.h
             return result;
         }
 
+
+        private T ReadXML<T>(XmlDocument xml)
+            where T : new()
+        {
+            T result = new T();
+            result = (T)ReadXML2(xml, result, GetNameProperty(result.GetType().Name.Substring(2)));
+            return result;
+        }
+
         private object ReadXML2(string file, object value, string tag)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
+            XmlNodeList nodes = doc.GetElementsByTagName(tag);
+            XmlNode node = nodes[0];
+
+            foreach (XmlNode n in node)
+            {
+                if (n.NodeType == XmlNodeType.Element)
+                {
+                    SetProperrty(value, n.Name, n.InnerXml);
+                }
+            }
+
+            return value;
+        }
+
+        private object ReadXML2(XmlDocument doc, object value, string tag)
+        {
             XmlNodeList nodes = doc.GetElementsByTagName(tag);
             XmlNode node = nodes[0];
 
@@ -158,6 +251,28 @@ namespace NFe.Components.Consist.PatosdeMinasMG.h
             string value = "";
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
+            XmlNodeList nodes = doc.GetElementsByTagName(elementTag);
+            XmlNode node = nodes[0];
+
+            foreach (XmlNode n in node)
+            {
+                if (n.NodeType == XmlNodeType.Element)
+                {
+                    if (n.Name.Equals(valueTag))
+                    {
+                        value = n.InnerText;
+                        break;
+                    }
+                }
+            }
+
+            return value;
+        }
+
+        private string GetValueXML(XmlDocument doc, string elementTag, string valueTag)
+        {
+            string value = "";
+            
             XmlNodeList nodes = doc.GetElementsByTagName(elementTag);
             XmlNode node = nodes[0];
 

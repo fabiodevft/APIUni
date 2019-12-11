@@ -1,5 +1,6 @@
 ﻿using NFe.Components.Abstract;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Components.Fiorilli
 {
@@ -165,7 +166,7 @@ namespace NFe.Components.Fiorilli
             ProxyPass = proxypass;
             ProxyServer = proxyserver;
             Certificado = certificado;
-        }
+        }       
 
         #endregion Construtores
 
@@ -200,6 +201,40 @@ namespace NFe.Components.Fiorilli
         {
             FiorilliService.ConsultarNfsePorRps(file);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return FiorilliService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return FiorilliService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return FiorilliService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return FiorilliService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return FiorilliService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return FiorilliService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
 
         #endregion Métodos
     }

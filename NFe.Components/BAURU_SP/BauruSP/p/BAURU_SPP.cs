@@ -77,7 +77,83 @@ namespace NFe.Components.BAURU_SP.BauruSP.p
             throw new Exceptions.ServicoInexistenteException();
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            tcDescricaoRps oTcDescricaoRps = ReadXML<tcDescricaoRps>(xml);
+            tcEstruturaDescricaoErros[] tcErros = null;
+            tcRetornoNota result = service.GerarNota(oTcDescricaoRps, out tcErros);
+            string strResult = base.CreateXML(result, tcErros);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            tcDadosCancelaNota oTcDadosCancela = ReadXML<tcDadosCancelaNota>(xml);
+            tcEstruturaDescricaoErros[] tcErros = null;
+            tcRetornoNota result = service.CancelarNota(oTcDadosCancela, out tcErros);
+            string strResult = base.CreateXML(result, tcErros);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            tcDadosConsultaNota oTcDadosConsultaNota = ReadXML<tcDadosConsultaNota>(xml);
+            tcEstruturaDescricaoErros[] tcErros = null;
+
+            tcRetornoNota result = service.ConsultarNotaValida(oTcDadosConsultaNota, out tcErros);
+            string strResult = base.CreateXML(result, tcErros);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            tcDadosPrestador oTcDadosPrestador = ReadXML<tcDadosPrestador>(xml);
+            tcEstruturaDescricaoErros[] tcErros = null;
+            tcDadosNota result = service.ConsultarNotaPrestador(oTcDadosPrestador, NumeroNota(xml, "ConsultarNotaPrestador"), out tcErros);
+            string strResult = base.CreateXML(result, tcErros);
+
+            XmlDocument xmlRetorno = new XmlDocument();
+            xmlRetorno.Load(strResult);
+
+            return xmlRetorno;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        #endregion
+
+
         private T ReadXML<T>(string file)
+            where T : new()
+        {
+            T result = new T();
+            result = (T)ReadXML2(file, result, result.GetType().Name.Substring(2));
+            return result;
+        }
+        private T ReadXML<T>(XmlDocument file)
             where T : new()
         {
             T result = new T();
@@ -104,6 +180,22 @@ namespace NFe.Components.BAURU_SP.BauruSP.p
 
             return value;
         }
+        private object ReadXML2(XmlDocument doc, object value, string tag)
+        {
+            XmlNodeList nodes = doc.GetElementsByTagName(tag);
+            XmlNode node = nodes[0];
+            if (node == null)
+                throw new Exception("Tag <" + tag + "> não encontrada");
+
+            foreach (XmlNode n in node)
+            {
+                if (n.NodeType == XmlNodeType.Element)
+                {
+                    SetProperrty(value, n.Name, n.InnerXml);
+                }
+            }
+            return value;
+        }
 
         private int NumeroNota(string file, string tag)
         {
@@ -127,6 +219,28 @@ namespace NFe.Components.BAURU_SP.BauruSP.p
                 }
             }
 
+            return nNumeroNota;
+        }
+        private int NumeroNota(XmlDocument doc, string tag)
+        {
+            int nNumeroNota = 0;
+
+            XmlNodeList nodes = doc.GetElementsByTagName(tag);
+            XmlNode node = nodes[0];
+            if (node == null)
+                throw new Exception("Tag <" + tag + "> não encontrada");
+
+            foreach (XmlNode n in node)
+            {
+                if (n.NodeType == XmlNodeType.Element)
+                {
+                    if (n.Name.Equals("Nota"))
+                    {
+                        nNumeroNota = Convert.ToInt32("0" + n.InnerText);
+                        break;
+                    }
+                }
+            }
             return nNumeroNota;
         }
 
