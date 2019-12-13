@@ -3,6 +3,7 @@ using NFe.Components.Abstract;
 using NFe.Components.PCamboriuSC;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Components.Simple.CamboriuSC.p
 {
@@ -96,6 +97,75 @@ namespace NFe.Components.Simple.CamboriuSC.p
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).RetornoXML);
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            LeRPSeGravaNota oLeRPSeGravaNota = new LeRPSeGravaNota();
+            oLeRPSeGravaNota = DeserializarObjeto<LeRPSeGravaNota>(xml);
+            Nota[] NotaAux = { oLeRPSeGravaNota.tNota.Nota };
+
+            string strResult = SerializarObjeto(service.LeRPSeGravaNota(NotaAux, oLeRPSeGravaNota.iCMC, oLeRPSeGravaNota.sLogin, oLeRPSeGravaNota.sSenha)[0]);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            CancelarNota oCancelamento = new CancelarNota();
+            oCancelamento = DeserializarObjeto<CancelarNota>(xml);
+            CancelamentoNota[] cancelNota = { oCancelamento.tCancelamentoNota.CancelamentoNota };
+
+            string strResult = SerializarObjeto(service.CancelarNota(cancelNota, oCancelamento.iCMC, oCancelamento.sLogin, oCancelamento.sSenha)[0]);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            ConsultaNota oFile = new ConsultaNota();
+            oFile = DeserializarObjeto<ConsultaNota>(xml);
+
+            string strResult = SerializarObjeto(service.ConsultaNota(oFile.iCMC, oFile.sLogin, oFile.sSenha, oFile.iNota, oFile.sCPFCNPJ)[0]);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            ConsultaNotaporRPS oFile = new ConsultaNotaporRPS();
+            oFile = DeserializarObjeto<ConsultaNotaporRPS>(xml);
+
+            string strResult = SerializarObjeto(service.ConsultaNotaporRPS(oFile.iCMC, oFile.sLogin, oFile.sSenha, oFile.iRPS, oFile.sCPFCNPJ, oFile.dDataRecibo)[0]);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
 
         #endregion
 

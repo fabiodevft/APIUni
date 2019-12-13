@@ -25,6 +25,7 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
         string DomainProxy = "";
 
         #region construtores
+
         public ELP(TipoAmbiente tpAmb,
                          string pastaRetorno,
                          string usuarioWs,
@@ -51,10 +52,11 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
         }
         #endregion construtores
 
+        
         #region Métodos
         public override void EmiteNF(string file)
         {
-            loteRpsResposta result = service.EnviarLoteRpsEnvio(UsuarioWs, SenhaWs, XMLtoString(file));
+            loteRpsResposta result = service.EnviarLoteRpsEnvio(UsuarioWs, SenhaWs, ELGen.XMLtoString(file));
 
             string strResult = base.CreateXML(result);
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML,
@@ -63,7 +65,7 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
 
         public override void CancelarNfse(string file)
         {
-            string numeroNfse = GetValueXML(file, "IdentificacaoNfse", "Numero");
+            string numeroNfse = ELGen.GetValueXML(file, "IdentificacaoNfse", "Numero");
             nfseRpsResposta result = service.CancelarNfseEnvio(UsuarioWs, numeroNfse);
             string strResult = base.CreateXML(result);
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML,
@@ -72,7 +74,7 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
 
         public override void ConsultarLoteRps(string file)
         {
-            string numeroProtocolo = GetValueXML(file, "ConsultarLoteRpsEnvio", "Protocolo");
+            string numeroProtocolo = ELGen.GetValueXML(file, "ConsultarLoteRpsEnvio", "Protocolo");
             nfseResposta result = service.ConsultarLoteRpsEnvio(UsuarioWs, numeroProtocolo);
             string strResult = base.CreateXML(result);
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).EnvioXML,
@@ -81,7 +83,7 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
 
         public override void ConsultarSituacaoLoteRps(string file)
         {
-            string numeroProtocolo = GetValueXML(file, "ConsultarSituacaoLoteRpsEnvio", "Protocolo");
+            string numeroProtocolo = ELGen.GetValueXML(file, "ConsultarSituacaoLoteRpsEnvio", "Protocolo");
             situacaoLoteRps result = service.ConsultarSituacaoLoteRpsEnvio(UsuarioWs, numeroProtocolo);
             string strResult = base.CreateXML(result);
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).EnvioXML,
@@ -90,21 +92,21 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
 
         public override void ConsultarNfse(string file)
         {
-            string numeroNfse = GetValueXML(file, "IdentificacaoRps", "Numero");
+            string numeroNfse = ELGen.GetValueXML(file, "IdentificacaoRps", "Numero");
 
-            DateTime dataInicial = Convert.ToDateTime(GetValueXML(file, "PeriodoEmissao", "DataInicial"));
+            DateTime dataInicial = Convert.ToDateTime(ELGen.GetValueXML(file, "PeriodoEmissao", "DataInicial"));
             bool dataInicialDef = String.IsNullOrEmpty(dataInicial.Date.ToString()) ? false : true;
 
-            DateTime dataFinal = Convert.ToDateTime(GetValueXML(file, "PeriodoEmissao", "DataFinal"));
+            DateTime dataFinal = Convert.ToDateTime(ELGen.GetValueXML(file, "PeriodoEmissao", "DataFinal"));
             bool dataFinalDef = String.IsNullOrEmpty(dataFinal.Date.ToString()) ? false : true; ;
 
-            string identificacaoTomador = GetValueXML(file, "Tomador", "Cnpj");
+            string identificacaoTomador = ELGen.GetValueXML(file, "Tomador", "Cnpj");
             if (String.IsNullOrEmpty(identificacaoTomador))
-                identificacaoTomador = GetValueXML(file, "Tomador", "Cpf");
+                identificacaoTomador = ELGen.GetValueXML(file, "Tomador", "Cpf");
 
-            string identificacaoIntermediario = GetValueXML(file, "IntermediarioServico", "Cnpj");
+            string identificacaoIntermediario = ELGen.GetValueXML(file, "IntermediarioServico", "Cnpj");
             if (String.IsNullOrEmpty(identificacaoIntermediario))
-                identificacaoIntermediario = GetValueXML(file, "IntermediarioServico", "Cpf");
+                identificacaoIntermediario = ELGen.GetValueXML(file, "IntermediarioServico", "Cpf");
 
             nfseResposta result = service.ConsultarNfseEnvio(UsuarioWs, numeroNfse, dataFinal, dataInicialDef, dataFinal, dataFinalDef, identificacaoTomador, identificacaoIntermediario);
             string strResult = base.CreateXML(result);
@@ -114,42 +116,104 @@ namespace NFe.Components.EL.BarraDeSaoFranciscoES.p
 
         public override void ConsultarNfsePorRps(string file)
         {
-            string identificacaoRps = GetValueXML(file, "IdentificacaoRps", "Numero");
+            string identificacaoRps = ELGen.GetValueXML(file, "IdentificacaoRps", "Numero");
             nfseRpsResposta result = service.ConsultarNfseRpsEnvio(identificacaoRps, UsuarioWs);
             string strResult = base.CreateXML(result);
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
 
-        private string XMLtoString(string arquivo)
-        {
-            XmlDocument docXML = new XmlDocument();
-            docXML.Load(arquivo);
-            return docXML.OuterXml;
-        }
 
-        private string GetValueXML(string file, string elementTag, string valueTag)
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
         {
-            string value = "";
+            loteRpsResposta result = service.EnviarLoteRpsEnvio(UsuarioWs, SenhaWs, xml.OuterXml);
+            string strResult = base.CreateXML(result);
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-            XmlNodeList nodes = doc.GetElementsByTagName(elementTag);
-            XmlNode node = nodes[0];
+            doc.Load(strResult);
 
-            foreach (XmlNode n in node)
-            {
-                if (n.NodeType == XmlNodeType.Element)
-                {
-                    if (n.Name.Equals(valueTag))
-                    {
-                        value = n.InnerText;
-                        break;
-                    }
-                }
-            }
-
-            return value;
+            return doc;
         }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string numeroNfse = ELGen.GetValueXML(xml, "IdentificacaoNfse", "Numero");
+            nfseRpsResposta result = service.CancelarNfseEnvio(UsuarioWs, numeroNfse);
+            string strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            string numeroProtocolo = ELGen.GetValueXML(xml, "ConsultarLoteRpsEnvio", "Protocolo");
+            nfseResposta result = service.ConsultarLoteRpsEnvio(UsuarioWs, numeroProtocolo);
+            string strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            string numeroProtocolo = ELGen.GetValueXML(xml, "ConsultarSituacaoLoteRpsEnvio", "Protocolo");
+            situacaoLoteRps result = service.ConsultarSituacaoLoteRpsEnvio(UsuarioWs, numeroProtocolo);
+            string strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string numeroNfse = ELGen.GetValueXML(xml, "IdentificacaoRps", "Numero");
+
+            DateTime dataInicial = Convert.ToDateTime(ELGen.GetValueXML(xml, "PeriodoEmissao", "DataInicial"));
+            bool dataInicialDef = String.IsNullOrEmpty(dataInicial.Date.ToString()) ? false : true;
+
+            DateTime dataFinal = Convert.ToDateTime(ELGen.GetValueXML(xml, "PeriodoEmissao", "DataFinal"));
+            bool dataFinalDef = String.IsNullOrEmpty(dataFinal.Date.ToString()) ? false : true; ;
+
+            string identificacaoTomador = ELGen.GetValueXML(xml, "Tomador", "Cnpj");
+            if (String.IsNullOrEmpty(identificacaoTomador))
+                identificacaoTomador = ELGen.GetValueXML(xml, "Tomador", "Cpf");
+
+            string identificacaoIntermediario = ELGen.GetValueXML(xml, "IntermediarioServico", "Cnpj");
+            if (String.IsNullOrEmpty(identificacaoIntermediario))
+                identificacaoIntermediario = ELGen.GetValueXML(xml, "IntermediarioServico", "Cpf");
+
+            nfseResposta result = service.ConsultarNfseEnvio(UsuarioWs, numeroNfse, dataFinal, dataInicialDef, dataFinal, dataFinalDef, identificacaoTomador, identificacaoIntermediario);
+            string strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string identificacaoRps = ELGen.GetValueXML(xml, "IdentificacaoRps", "Numero");
+            nfseRpsResposta result = service.ConsultarNfseRpsEnvio(identificacaoRps, UsuarioWs);
+            string strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
+
 
         #endregion Métodos
     }

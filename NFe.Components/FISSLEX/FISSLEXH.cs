@@ -165,6 +165,133 @@ namespace NFe.Components.FISSLEX.h
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
 
+
+        #region API
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            #region Definições de proxy
+
+            if (!String.IsNullOrEmpty(ProxyUser))
+            {
+                ServiceConsultarSituacaoLoteRps.Proxy = WebRequest.DefaultWebProxy;
+                ServiceConsultarSituacaoLoteRps.Proxy.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+                ServiceConsultarSituacaoLoteRps.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+            }
+
+            #endregion Definições de proxy
+
+            ConsultarSituacaoLoteRpsEnvio envio = DeserializarObjeto<ConsultarSituacaoLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(ServiceConsultarSituacaoLoteRps.Execute(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            //Envio de NFSe não é por referencia, utilizamos a forma de envio mais simples. Wandrey
+            return null;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            //Envio de cancelamento não é por referencia, utilizamos a forma de envio mais simples. Wandrey
+            return null;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            #region Definições de proxy
+
+            if (!String.IsNullOrEmpty(ProxyUser))
+            {
+                ServiceConsultaLoteRps.Proxy = WebRequest.DefaultWebProxy;
+                ServiceConsultaLoteRps.Proxy.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+                ServiceConsultaLoteRps.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+            }
+
+            #endregion Definições de proxy
+
+            ConsultarLoteRpsEnvio oTcDadosConsultaLote = ReadXML<ConsultarLoteRpsEnvio>(xml);
+            NFe.Components.br.com.fisslex.demo.aws_consultaloterps.h.tcMensagemRetorno[] result = null;
+
+            ServiceConsultaLoteRps.Execute(oTcDadosConsultaLote, out result);
+
+            string strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            #region Definições de proxy
+
+            if (!String.IsNullOrEmpty(ProxyUser))
+            {
+                ServiceConsultaNfse.Proxy = WebRequest.DefaultWebProxy;
+                ServiceConsultaNfse.Proxy.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+                ServiceConsultaNfse.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+            }
+
+            #endregion Definições de proxy
+
+            ConsultarNfseEnvio oTcDadosConsultaNfse = ReadXML<ConsultarNfseEnvio>(xml);
+            NFe.Components.br.com.fisslex.demo.aws_consultanfse.h.tcMensagemRetorno[] result = null;
+            string strResult = "";
+
+            strResult = ServiceConsultaNfse.Execute(oTcDadosConsultaNfse, out result);
+
+            strResult = base.CreateXML(result);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            #region Definições de proxy
+
+            if (!String.IsNullOrEmpty(ProxyUser))
+            {
+                ServiceConsultaNfsePorRps.Proxy = WebRequest.DefaultWebProxy;
+                ServiceConsultaNfsePorRps.Proxy.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+                ServiceConsultaNfsePorRps.Credentials = new NetworkCredential(ProxyUser, ProxyPass);
+            }
+
+            #endregion Definições de proxy
+
+            ConsultarNfseRpsEnvio oTcDadosConsultaNfse = ReadXML<ConsultarNfseRpsEnvio>(xml);
+            NFe.Components.br.com.fisslex.demo.aws_consultanfseporrps.h.tcMensagemRetorno[] result = null;
+
+            string xResult = ServiceConsultaNfsePorRps.Execute(oTcDadosConsultaNfse, out result);
+
+            string strResult = string.Empty;
+            if (result.Length != 0)
+                strResult = base.CreateXML(result);
+            else
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(xResult);
+                strResult = xmlDoc.OuterXml;
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
+
+
         private T ReadXML<T>(string file)
             where T : new()
         {
@@ -181,6 +308,23 @@ namespace NFe.Components.FISSLEX.h
 
             return result;
         }
+
+        private T ReadXML<T>(XmlDocument doc)
+           where T : new()
+        {
+            T result = new T();
+
+            XmlNodeList nodes = doc.GetElementsByTagName(result.GetType().Name);
+            object rps = result;
+            string tagName = rps.GetType().Name;
+
+            XmlNode node = nodes[0];
+            ReadXML(node, rps, tagName);
+
+            return result;
+        }
+
+
 
         private object ReadXML(XmlNode node, object value, string tag)
         {

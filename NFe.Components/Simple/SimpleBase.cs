@@ -1,5 +1,6 @@
 ﻿using NFe.Components.Abstract;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Components.Simple
 {
@@ -82,6 +83,42 @@ namespace NFe.Components.Simple
         {
             SimpleService.ConsultarNfsePorRps(file);
         }
+
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return SimpleService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return SimpleService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return SimpleService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return SimpleService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return SimpleService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return SimpleService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
+
 
         #endregion
 

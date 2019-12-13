@@ -1,4 +1,5 @@
 ﻿using NFe.Components.Abstract;
+using System.Xml;
 
 namespace NFe.Components.FISSLEX
 {
@@ -80,6 +81,41 @@ namespace NFe.Components.FISSLEX
         {
             FISSLEXService.ConsultarNfsePorRps(file);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return FISSLEXService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return FISSLEXService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return FISSLEXService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return FISSLEXService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return FISSLEXService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return FISSLEXService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
+
         #endregion
     }
 }

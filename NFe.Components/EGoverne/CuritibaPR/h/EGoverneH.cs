@@ -105,6 +105,68 @@ namespace NFe.Components.EGoverne.CuritibaPR.h
                 Encoding.UTF8);
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string result = service.RecepcionarXml("RecepcionarLoteRps", xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string result = service.RecepcionarXml("CancelarNfse", xml.InnerXml);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            string result = service.RecepcionarXml("ConsultarLoteRps", xml.InnerXml);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            string result = service.RecepcionarXml("ConsultarSituacaoLoteRps", xml.InnerXml);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string result = service.RecepcionarXml("ConsultarNfse", xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string result = service.RecepcionarXml("ConsultarNfsePorRps", xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        #endregion
+
         #endregion Métodos
     }
 }

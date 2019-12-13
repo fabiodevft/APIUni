@@ -95,8 +95,42 @@ namespace NFe.Components.RLZ_INFORMATICA
         {
             Rlz_InformaticaService.ConsultarNfsePorRps(file);
         }
+        
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return Rlz_InformaticaService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return Rlz_InformaticaService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return Rlz_InformaticaService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return Rlz_InformaticaService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return Rlz_InformaticaService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return Rlz_InformaticaService.ConsultarNfsePorRps(xml);
+        }
+
         #endregion
 
+        #endregion
 
     }
 }

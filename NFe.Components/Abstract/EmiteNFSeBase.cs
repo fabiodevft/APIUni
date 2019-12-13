@@ -238,5 +238,10 @@ namespace NFe.Components.Abstract
         {
             throw new NotImplementedException();
         }
+
+        public virtual XmlDocument ConsultarSituacaoNFSe(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

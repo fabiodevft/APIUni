@@ -71,6 +71,50 @@ namespace NFe.Components.RLZ_INFORMATICA.SantaFeDoSul.h
             throw new Exceptions.ServicoInexistenteException();
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string result = service.gravaNotaXML(xml.InnerXml);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(PrepararRetorno(base.CreateXML(result)));
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string result = service.listarNotasXML(xml.InnerXml);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(PrepararRetorno(base.CreateXML(result)));
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        #endregion
+
+
         private void PrepararRetorno(string file, string result, string extEnvio, string extRetorno)
         {
             result = result.Substring(29);
@@ -78,6 +122,15 @@ namespace NFe.Components.RLZ_INFORMATICA.SantaFeDoSul.h
             result = result.Replace("&lt;", "<");
             result = result.Replace("&gt;", ">");
             base.GerarRetorno(file, result.Trim(), extEnvio, extRetorno);
+        }
+
+        private string PrepararRetorno(string result)
+        {
+            result = result.Substring(29);
+            result = result.Substring(0, result.Length - 9);
+            result = result.Replace("&lt;", "<");
+            result = result.Replace("&gt;", ">");
+            return result;
         }
 
         private void ReadXML(string file)

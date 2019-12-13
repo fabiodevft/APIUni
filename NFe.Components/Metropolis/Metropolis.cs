@@ -21,5 +21,6 @@ namespace NFe.Components.Metropolis
             : base(tpAmb, pastaRetorno, codMun, proxyserver, proxyuser, proxypass, certificado)
         { }
         #endregion
+
     }
 }

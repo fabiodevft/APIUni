@@ -183,6 +183,7 @@
     <Compile Include="Coplan\CoplanBase.cs" />
     <Compile Include="CPF.cs" />
     <Compile Include="EL\BarraDeSaoFranciscoES\p\ELP.cs" />
+    <Compile Include="EL\ELGen.cs" />
     <Compile Include="EL\IconhaES\p\ELP.cs" />
     <Compile Include="EL\SaoJoaoParaisoMG\p\ELP.cs" />
     <Compile Include="EL\VianaES\p\ELP.cs" />

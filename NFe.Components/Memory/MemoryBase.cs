@@ -1,4 +1,5 @@
 ﻿using NFe.Components.Abstract;
+using System.Xml;
 
 namespace NFe.Components.Memory
 {
@@ -77,6 +78,41 @@ namespace NFe.Components.Memory
         {
             MemoryService.ConsultarNfsePorRps(file);
         }
+
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return MemoryService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return MemoryService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return MemoryService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return MemoryService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return MemoryService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return MemoryService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
 
         #endregion Métodos
     }

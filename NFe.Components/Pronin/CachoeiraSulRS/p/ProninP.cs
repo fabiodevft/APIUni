@@ -118,6 +118,72 @@ namespace NFe.Components.Pronin.CachoeiraSulRS.p
                                         Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
 
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            ServicePointManager.ServerCertificateValidationCallback = MyCertHandler;
+
+            string result = ServiceGeracao.RecepcionarLoteRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string result = ServiceGeracao.CancelarNfse(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {        
+            string result = ServiceConsultas.ConsultarLoteRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarSituacaoLoteRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarNfse(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarNfsePorRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        #endregion
+
         #endregion Métodos
     }
 }

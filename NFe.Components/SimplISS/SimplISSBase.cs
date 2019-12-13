@@ -1,4 +1,5 @@
 ﻿using NFe.Components.Abstract;
+using System.Xml;
 
 namespace NFe.Components.SimplISS
 {
@@ -153,6 +154,40 @@ namespace NFe.Components.SimplISS
         {
             SimplISSService.ConsultarNfsePorRps(file);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return SimplISSService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return SimplISSService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return SimplISSService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return SimplISSService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return SimplISSService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return SimplISSService.ConsultarNfsePorRps(xml);
+        }
+
+        #endregion
 
         #endregion Métodos
     }

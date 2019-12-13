@@ -92,6 +92,7 @@ namespace NFe.Components.SigCorp.BarretosSP.p
 
 
         #region API
+
         public override XmlDocument EmiteNF(XmlDocument xml)
         {
             tcDescricaoRps oTcDescricaoRps = SigCorpGen.ReadXML<tcDescricaoRps>(xml);
@@ -161,7 +162,6 @@ namespace NFe.Components.SigCorp.BarretosSP.p
         }
 
         #endregion
-
         
         #endregion
     }

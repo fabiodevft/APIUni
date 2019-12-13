@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml;
 
 namespace NFe.Components.GovDigital
 {
@@ -244,6 +245,63 @@ namespace NFe.Components.GovDigital
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                                             Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML, Encoding.UTF8);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string strResult = Invoke("GerarNfse", new[] { NfseCabecMsg, xml.OuterXml });
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string strResult = Invoke("CancelarNfse", new[] { NfseCabecMsg, xml.OuterXml });
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            string strResult = Invoke("ConsultarLoteRps", new[] { NfseCabecMsg, xml.OuterXml });
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string strResult = Invoke("ConsultarNfseServicoPrestado", new[] { NfseCabecMsg, xml.OuterXml });
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string strResult = Invoke("ConsultarNfsePorRps", new[] { NfseCabecMsg, xml.OuterXml });
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
+
 
         #endregion Métodos
 

@@ -183,7 +183,7 @@ namespace NFe.Components.Fiorilli.AguasDeLindoiaSP.p
 
         public override XmlDocument ConsultarNfse(XmlDocument xml)
         {
-            ConsultarNfseServicoPrestadoEnvio envio = DeserializarObjeto<ConsultarNfseServicoPrestadoEnvio>(file);
+            ConsultarNfseServicoPrestadoEnvio envio = DeserializarObjeto<ConsultarNfseServicoPrestadoEnvio>(xml);
             string strResult = SerializarObjeto(Service.consultarNfseServicoPrestado(envio, UsuarioWs, SenhaWs));
 
             XmlDocument xmlRetorno = new XmlDocument();
@@ -194,7 +194,7 @@ namespace NFe.Components.Fiorilli.AguasDeLindoiaSP.p
 
         public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
         {
-            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(file);
+            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(xml);
             string strResult = SerializarObjeto(Service.consultarNfsePorRps(envio, UsuarioWs, SenhaWs));
 
             XmlDocument xmlRetorno = new XmlDocument();

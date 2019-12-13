@@ -61,6 +61,42 @@ namespace NFe.Components.EGoverne.CuritibaPR
             throw new NotImplementedException();
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
         public T ReadXML<T>(string file)
              where T : new()
         {

@@ -2,6 +2,7 @@
 using NFe.Components.HBlumenauSC;
 using System;
 using System.Net;
+using System.Xml;
 
 namespace NFe.Components.SimplISS.BlumenauSC.h
 {
@@ -91,6 +92,47 @@ namespace NFe.Components.SimplISS.BlumenauSC.h
             //GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
             //                              Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            var envio = DeserializarObjeto<GerarNfseEnvio>(xml);
+            var strResult = SerializarObjeto(Service.GerarNfse(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui o cancelamento de Nota.");
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta de lote RPS.");
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta situação de lote RPS.");
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta de NFSe.");
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta de RPS.");
+        }
+
+        #endregion
 
         #endregion
     }

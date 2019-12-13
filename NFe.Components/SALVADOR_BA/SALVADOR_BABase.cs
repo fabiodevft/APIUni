@@ -1,5 +1,6 @@
 ﻿using NFe.Components.Abstract;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Components.SALVADOR_BA
 {
@@ -79,6 +80,46 @@ namespace NFe.Components.SALVADOR_BA
         {
             SALVADOR_BAService.ConsultarSituacaoNFSe(file);
         }
+
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            return SALVADOR_BAService.EmiteNF(xml);
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            return SALVADOR_BAService.CancelarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            return SALVADOR_BAService.ConsultarLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            return SALVADOR_BAService.ConsultarSituacaoLoteRps(xml);
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            return SALVADOR_BAService.ConsultarNfse(xml);
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            return SALVADOR_BAService.ConsultarNfsePorRps(xml);
+        }
+
+        public XmlDocument ConsultarSituacaoNFSe(XmlDocument xml)
+        {
+            return SALVADOR_BAService.ConsultarSituacaoNFSe(xml);
+        }
+
+        #endregion
 
         #endregion
 

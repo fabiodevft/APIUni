@@ -2,7 +2,7 @@
 using NFe.Components.PBlumenauSC;
 using System;
 using System.Net;
-
+using System.Xml;
 
 namespace NFe.Components.SimplISS.BlumenauSC.p
 {
@@ -85,6 +85,56 @@ namespace NFe.Components.SimplISS.BlumenauSC.p
             //GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
             //                              Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            var envio = DeserializarObjeto<GerarNfseEnvio>(xml);
+            GerarNfseResposta retorno = Service.GerarNfse(envio);
+            var strResult = SerializarObjeto(Service.GerarNfse(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            var envio = DeserializarObjeto<CancelarNfseEnvio>(xml);
+            var strResult = SerializarObjeto(Service.CancelarNfse(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta de lote RPS.");
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta situação de lote RPS.");
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta situação de lote RPS.");
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exception("O município de Blumenau-SC não possui a consulta situação de lote RPS.");
+        }
+
+        #endregion
+
+
         #endregion
     }
 }

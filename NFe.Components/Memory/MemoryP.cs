@@ -101,6 +101,79 @@ namespace NFe.Components.Memory.P
             GerarRetorno(file, result, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+        
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string result = service.tm_lote_rps_serviceimportarLoteRPS(xml.InnerXml,
+                                                                       CodigoMun,
+                                                                       GetValueXML(xml.InnerXml, "LoteRps", "Cnpj"),
+                                                                       HashWs);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string result = service.tm_lote_rps_servicecancelarNFSE(GetValueXML(xml.InnerXml, "cancelarNFSE", "numeroNFSE"),
+                                                                    CodigoMun,
+                                                                    GetValueXML(xml.InnerXml, "cancelarNFSE", "cnpjPrestador"),
+                                                                    HashWs);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            string result = service.tm_lote_rps_serviceconsultarLoteRPS(GetValueXML(xml.InnerXml, "consultarLoteRPS", "protocolo"),
+                                                                        CodigoMun,
+                                                                        GetValueXML(xml.InnerXml, "consultarLoteRPS", "cnpjPrestador"),
+                                                                        HashWs);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exceptions.ServicoInexistenteException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string result = service.tm_lote_rps_serviceconsultarNFSE(GetValueXML(xml.InnerXml, "consultarNFSE", "numeroNFSE"),
+                                                                     CodigoMun,
+                                                                     GetValueXML(xml.InnerXml, "consultarNFSE", "cnpjPrestador"),
+                                                                     HashWs);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string result = service.tm_lote_rps_serviceconsultarRPS(GetValueXML(xml.InnerXml, "consultarRPS", "numeroRPS"),
+                                                                    CodigoMun,
+                                                                    GetValueXML(xml.InnerXml, "consultarRPS", "cnpjPrestador"),
+                                                                    HashWs);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        #endregion
 
         private string ReadXML(string file)
         {

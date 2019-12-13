@@ -109,6 +109,130 @@ namespace NFe.Components.SimplISS.BalnearioCamboriu.p
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+
+
+        public override void EmiteNF(string file)
+        {
+            GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(file);              
+            string strResult = SerializarObjeto(Service.GerarNfse(envio, DadosConexao));
+
+            GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML,
+                                          Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML);
+
+        }
+
+        public override void CancelarNfse(string file)
+        {
+            CancelarNfseEnvio envio = DeserializarObjeto<CancelarNfseEnvio>(file);
+            string strResult = SerializarObjeto(Service.CancelarNfse(envio, DadosConexao));
+
+            GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML,
+                                          Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).RetornoXML);
+        }
+
+        public override void ConsultarLoteRps(string file)
+        {
+            ConsultarLoteRpsEnvio envio = DeserializarObjeto<ConsultarLoteRpsEnvio>(file);
+            string strResult = SerializarObjeto(Service.ConsultarLoteRps(envio, DadosConexao));
+            GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).EnvioXML,
+                                          Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).RetornoXML);
+        }
+
+        public override void ConsultarSituacaoLoteRps(string file)
+        {
+            ConsultarSituacaoLoteRpsEnvio envio = DeserializarObjeto<ConsultarSituacaoLoteRpsEnvio>(file);
+            string strResult = SerializarObjeto(Service.ConsultarSituacaoLoteRps(envio, DadosConexao));
+            GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).EnvioXML,
+                                          Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).RetornoXML);
+        }
+
+        public override void ConsultarNfse(string file)
+        {
+            ConsultarNfseEnvio envio = DeserializarObjeto<ConsultarNfseEnvio>(file);
+            string strResult = SerializarObjeto(Service.ConsultarNfse(envio, DadosConexao));
+            GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).EnvioXML,
+                                          Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).RetornoXML);
+        }
+
+        public override void ConsultarNfsePorRps(string file)
+        {
+            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(file);
+            string strResult = SerializarObjeto(Service.ConsultarNfsePorRps(envio, DadosConexao));
+            GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
+                                          Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
+        }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.GerarNfse(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            CancelarNfseEnvio envio = DeserializarObjeto<CancelarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CancelarNfse(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            ConsultarLoteRpsEnvio envio = DeserializarObjeto<ConsultarLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarLoteRps(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            ConsultarSituacaoLoteRpsEnvio envio = DeserializarObjeto<ConsultarSituacaoLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarSituacaoLoteRps(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            ConsultarNfseEnvio envio = DeserializarObjeto<ConsultarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarNfse(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarNfsePorRps(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
+
         #endregion
     }
 }

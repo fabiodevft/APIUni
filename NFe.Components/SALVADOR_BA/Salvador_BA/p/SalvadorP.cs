@@ -69,10 +69,54 @@ namespace NFe.Components.SALVADOR_BA.Salvador_BA.p
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedStaNFse).RetornoXML);            
 
         }
-
         public override void EmiteNF(string file)
         {
             throw new System.NotImplementedException();
         }
+
+        #region API
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarSituacaoNFSe(XmlDocument xml)
+        {
+            string strResult = service.ConsultarSituacaoNfse(xml.OuterXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+
     }
 }

@@ -95,6 +95,95 @@ namespace NFe.Components.Metropolis.IlheusBA.h
                                                                                 Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
 
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            input objInput = new input();
+            objInput.nfseCabecMsg = CabecMsg;
+            objInput.nfseDadosMsg = xml.InnerXml;
+
+            string strResult = service.RecepcionarLoteRps(objInput).outputXML;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            input objInput = new input();
+            objInput.nfseCabecMsg = CabecMsg;
+            objInput.nfseDadosMsg = xml.InnerXml;
+           
+            string strResult = service.CancelarNfse(objInput).outputXML;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            input objInput = new input();
+            objInput.nfseCabecMsg = CabecMsg;
+            objInput.nfseDadosMsg = xml.InnerXml;
+            
+            string strResult = service.ConsultarLoteRps(objInput).outputXML;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            input objInput = new input();
+            objInput.nfseCabecMsg = CabecMsg;
+            objInput.nfseDadosMsg = xml.InnerXml;
+
+            string strResult = service.ConsultarSituacaoLoteRps(objInput).outputXML;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            input objInput = new input();
+            objInput.nfseCabecMsg = CabecMsg;
+            objInput.nfseDadosMsg = xml.InnerXml;
+
+            string strResult = service.ConsultarNfse(objInput).outputXML;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            input objInput = new input();
+            objInput.nfseCabecMsg = CabecMsg;
+            objInput.nfseDadosMsg = xml.InnerXml;
+
+            string strResult = service.ConsultarNfsePorRps(objInput).outputXML;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
+
         private string ReadXML(string file)
         {
             XmlDocument doc = new XmlDocument();

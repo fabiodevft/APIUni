@@ -88,6 +88,53 @@ namespace NFe.Components.EGoverneISS.OsascoSP.p
             throw new NotImplementedException();
         }
 
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            EmissaoNotaFiscalRequest notaFiscal = DeserializarObjeto<EmissaoNotaFiscalRequest>(xml);
+            notaFiscal.NotaFiscal.Homologacao = tpAmb == TipoAmbiente.taHomologacao ? true : false;
+            string result = SerializarObjeto(Request.Emitir(notaFiscal));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            CancelamentoNotaFiscalRequest notaFiscal = DeserializarObjeto<CancelamentoNotaFiscalRequest>(xml);
+            notaFiscal.Homologacao = tpAmb == TipoAmbiente.taHomologacao ? true : false;
+            string result = SerializarObjeto(Request.Cancelar(notaFiscal));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
         #endregion
     }
 }

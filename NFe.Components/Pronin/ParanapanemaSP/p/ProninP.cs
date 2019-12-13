@@ -131,6 +131,86 @@ namespace NFe.Components.Pronin.ParanapanemaSP.p
                                         Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
 
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            ServicePointManager.ServerCertificateValidationCallback = MyCertHandler;
+
+            string result = "";
+
+            switch (xml.DocumentElement.Name)
+            {
+                case "GerarNfseEnvio":
+                    result = ServiceGeracao.GerarNfse(xml.InnerXml);
+                    break;
+                case "EnviarLoteRpsSincronoEnvio":
+                    result = ServiceGeracao.EnviarLoteRpsSincrono(xml.InnerXml);
+                    break;
+                case "EnviarLoteRpsEnvio":
+                    result = ServiceGeracao.RecepcionarLoteRps(xml.InnerXml);
+                    break;
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string result = ServiceGeracao.CancelarNfse(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarLoteRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarSituacaoLoteRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarNfse(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string result = ServiceConsultas.ConsultarNfsePorRps(xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        #endregion
+
         #endregion Métodos
     }
 }
