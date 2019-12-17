@@ -122,6 +122,78 @@ namespace NFe.Components.VersaTecnologia.UbaMG.p
         }
 
 
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string result = string.Empty;
+
+            switch (xml.DocumentElement.Name)
+            {
+                case "EnviarLoteRpsEnvio":
+                    result = Service.RecepcionarLoteRps(CabecMsg, xml.InnerXml);
+                    break;
+
+                case "GerarNfseEnvio":
+                    result = Service.GerarNfse(CabecMsg, xml.InnerXml);
+                    break;
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string result = string.Empty;
+
+            result = Service.CancelarNfse(CabecMsg, xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            string result = string.Empty;
+
+            result = Service.ConsultarLoteRps(CabecMsg, xml.OuterXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            string result = string.Empty;
+
+            result = Service.ConsultarNfsePorRps(CabecMsg, xml.InnerXml);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(result);
+
+            return doc;
+        }
+
+        #endregion
+
         #endregion
 
     }

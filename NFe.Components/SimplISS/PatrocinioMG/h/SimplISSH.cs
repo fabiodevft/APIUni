@@ -109,6 +109,78 @@ namespace NFe.Components.SimplISS.PatrocinioMG.h
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                                           Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.GerarNfse(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            CancelarNfseEnvio envio = DeserializarObjeto<CancelarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CancelarNfse(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            ConsultarLoteRpsEnvio envio = DeserializarObjeto<ConsultarLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarLoteRps(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            ConsultarSituacaoLoteRpsEnvio envio = DeserializarObjeto<ConsultarSituacaoLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarSituacaoLoteRps(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            ConsultarNfseEnvio envio = DeserializarObjeto<ConsultarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarNfse(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.ConsultarNfsePorRps(envio, DadosConexao));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
+
         #endregion
     }
 }

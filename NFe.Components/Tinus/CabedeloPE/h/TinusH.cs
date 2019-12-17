@@ -7,6 +7,7 @@ using NFe.Components.HCabedeloPB_TINUS_ConsultarNfsePorRps;
 using NFe.Components.HCabedeloPB_TINUS_ConsultarSituacaoLoteRps;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Components.Tinus.CabedeloPB.h
 {
@@ -128,6 +129,100 @@ namespace NFe.Components.Tinus.CabedeloPB.h
                 Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
                 Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
         }
+
+        #region API
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            RecepcionarLoteRps Service = new RecepcionarLoteRps();
+            Service.ClientCertificates.Add(Certificado);
+            DefinirProxy<RecepcionarLoteRps>(Service);
+
+            EnviarLoteRpsEnvio envio = DeserializarObjeto<EnviarLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CallRecepcionarLoteRps(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            CancelarNfse Service = new CancelarNfse();
+            Service.ClientCertificates.Add(Certificado);
+            DefinirProxy<CancelarNfse>(Service);
+
+            CancelarNfseEnvio envio = DeserializarObjeto<CancelarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CallCancelarNfse(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            ConsultarLoteRps Service = new ConsultarLoteRps();
+            Service.ClientCertificates.Add(Certificado);
+            DefinirProxy<ConsultarLoteRps>(Service);
+
+            ConsultarLoteRpsEnvio envio = DeserializarObjeto<ConsultarLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CallConsultarLoteRps(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            ConsultarSituacaoLoteRps Service = new ConsultarSituacaoLoteRps();
+            Service.ClientCertificates.Add(Certificado);
+            DefinirProxy<ConsultarSituacaoLoteRps>(Service);
+
+            ConsultarSituacaoLoteRpsEnvio envio = DeserializarObjeto<ConsultarSituacaoLoteRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CallConsultarSituacaoLoteRps(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xml)
+        {
+            ConsultarNfse Service = new ConsultarNfse();
+            Service.ClientCertificates.Add(Certificado);
+            DefinirProxy<ConsultarNfse>(Service);
+
+            ConsultarNfseEnvio envio = DeserializarObjeto<ConsultarNfseEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CallConsultarNfse(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            ConsultarNfsePorRps Service = new ConsultarNfsePorRps();
+            Service.ClientCertificates.Add(Certificado);
+            DefinirProxy<ConsultarNfsePorRps>(Service);
+
+            ConsultarNfseRpsEnvio envio = DeserializarObjeto<ConsultarNfseRpsEnvio>(xml);
+            string strResult = SerializarObjeto(Service.CallConsultarNfsePorRps(envio));
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(strResult);
+
+            return doc;
+        }
+
+        #endregion
 
         #endregion Métodos
 

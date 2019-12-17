@@ -409,6 +409,15 @@ namespace NFe.Components
 
             return result;
         }
+        public static string GetAttributeXML(string node, string attribute, XmlDocument conteudoXML)
+        {
+            string result = "";
+
+            XmlElement elementos = (XmlElement)conteudoXML.GetElementsByTagName(node)[0];
+            result = elementos.GetAttribute(attribute);
+
+            return result;
+        }
 
         #region FileInUse()
 

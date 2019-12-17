@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
@@ -70,6 +71,8 @@ namespace NFe.Service
         /// </summary>
         public bool vXmlNfeDadosMsgEhXML    //danasa 12-9-2009
 => Path.GetExtension(NomeArquivoXML).ToLower() == ".xml";
+
+        public X509Certificate Certificado;
 
         #endregion Propriedades
 

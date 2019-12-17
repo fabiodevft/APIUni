@@ -162,6 +162,119 @@ namespace NFe.Components.SOFTPLAN
                                        Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML);
         }
 
+
+        #region API
+
+        public override XmlDocument CancelarNfse(XmlDocument xml)
+        {
+            string result = "";
+
+            TokenTimeExpire();
+
+            if (String.IsNullOrEmpty(Token))
+                throw new Exception("Token inválido");
+
+            using (POSTRequest post = new POSTRequest
+            {
+                Proxy = Proxy
+            })
+            {
+                IList<string> autorizations = new List<string>()
+                {
+                    $"Authorization: bearer {Token}"
+                };
+
+                result = post.PostForm(Path.Combine(URLAPIBase, "cancelamento/notas/cancela"),
+                    new Dictionary<string, string>
+                    {
+                        {"f1", xml.OuterXml}
+                    },
+                    autorizations);
+            }
+
+             XmlDocument doc = new XmlDocument();
+            doc.Load(base.CreateXML(result));
+
+            return doc;
+        }
+
+        public override XmlDocument ConsultarLoteRps(XmlDocument xml)
+        {
+            throw new Exception("O sistema de notas do município não utiliza o método Consultar Lote RPS");
+        }
+
+        public override XmlDocument ConsultarNfse(XmlDocument xmlConsulta)
+        {
+            string result = "";
+            string codigoVerificacao = "";
+            string cmc = "";
+
+            XmlNode consultaNFSe = xmlConsulta?.GetElementsByTagName("ConsultarNfseEnvio")[0];
+            codigoVerificacao = consultaNFSe?.FirstChild?.InnerText;
+            cmc = consultaNFSe?.LastChild?.InnerText;
+
+            using (GetRequest get = new GetRequest
+            {
+                Proxy = Proxy
+            })
+            {
+                result = get.GetForm($"{Path.Combine(URLAPIBase, $"consultas/notas/codigo/{codigoVerificacao}/{cmc}")}");
+            }
+
+            result = result?.Replace("{", "");
+            result = "{" + "\"nota\":{" + result + "}";
+
+            XmlDocument consultaResult = JsonConvert.DeserializeXmlNode(result);
+
+            return consultaResult;
+        }
+
+        public override XmlDocument ConsultarNfsePorRps(XmlDocument xml)
+        {
+            throw new Exception("O sistema de notas do município não utiliza o método Consultar Notas por RPS");
+        }
+
+        public override XmlDocument ConsultarSituacaoLoteRps(XmlDocument xml)
+        {
+            throw new Exception("O sistema de notas do município não utiliza o método Consulta Situação de Lote RPS");
+        }
+
+        public override XmlDocument EmiteNF(XmlDocument xml)
+        {
+            string result = "";
+
+            TokenTimeExpire();
+
+            if (String.IsNullOrEmpty(Token))
+                throw new Exception("Token inválido");
+
+            using (POSTRequest post = new POSTRequest
+            {
+                Proxy = Proxy
+            })
+            {
+                IList<string> autorizations = new List<string>()
+                {
+                    $"Authorization: bearer {Token}"
+                };
+
+                result = post.PostForm(Path.Combine(URLAPIBase, "processamento/notas/processa"),
+                    new Dictionary<string, string>
+                    {
+                        { "f1", xml.OuterXml}
+                    },
+                    autorizations);
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(base.CreateXML(result));
+
+            return doc;
+        }
+
+
+        #endregion
+
         public override void GerarRetorno(string file, string result, string extEnvio, string extRetorno)
         {
             FileInfo fi = new FileInfo(file);

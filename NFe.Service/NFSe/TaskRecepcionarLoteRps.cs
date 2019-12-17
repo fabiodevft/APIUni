@@ -26,6 +26,7 @@ using NFSe.Components;
 using System;
 using System.IO;
 using System.Xml;
+using System.Security.Cryptography.X509Certificates;
 #if _fw46
 using System.ServiceModel;
 using static NFe.Components.Security.SOAPSecurity;
@@ -57,11 +58,12 @@ namespace NFe.Service.NFSe
         }
 
 
-        public TaskNFSeRecepcionarLoteRps(int empresa, XmlDocument arquivo)
+        public TaskNFSeRecepcionarLoteRps(int empresa, XmlDocument arquivo, X509Certificate certificado)
         {
             Servico = Servicos.NFSeRecepcionarLoteRps;
             ConteudoXML = arquivo;
             empAux = empresa;
+            Certificado = certificado;
         }
 
         public XmlDocument ExecuteAPI()
@@ -152,7 +154,7 @@ namespace NFe.Service.NFSe
 
                     case PadroesNFSe.BETHA:
 
-                        string versao = Functions.GetAttributeXML("LoteRps", "versao", NomeArquivoXML);
+                        string versao = Functions.GetAttributeXML("LoteRps", "versao", ConteudoXML);
 
                         if (versao.Equals("2.02"))
                         {
