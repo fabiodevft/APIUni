@@ -183,7 +183,7 @@ namespace NFe.Components.Fiorilli.AssisSP.p
 
         public override XmlDocument ConsultarNfse(XmlDocument xml)
         {
-            ConsultarNfseServicoPrestadoEnvio envio = DeserializarObjeto<ConsultarNfseServicoPrestadoEnvio>(file);
+            ConsultarNfseServicoPrestadoEnvio envio = DeserializarObjeto<ConsultarNfseServicoPrestadoEnvio>(xml);
             string strResult = SerializarObjeto(Service.consultarNfseServicoPrestado(envio, UsuarioWs, SenhaWs));
 
             XmlDocument xmlRetorno = new XmlDocument();

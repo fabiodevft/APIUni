@@ -505,7 +505,7 @@ namespace NFe.Validate
                 }
                 else
                 {
-                    Validar()
+                    //Validar();
                 }
                 
                 

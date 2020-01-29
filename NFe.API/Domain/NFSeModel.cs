@@ -334,6 +334,7 @@ namespace NFe.API.Domain
             public TTomador TTomador { get; set; }
             public TServico TServico { get; set; }
             public TCondicaoPagamento TCondicaoPagamento { get; set; }
+            public TCertificado TCertificado  { get; set; }
         }
 
         public class TArquivo
@@ -343,9 +344,15 @@ namespace NFe.API.Domain
             public string Nome { get; set; }
         }
 
-        public TDFe Doc { get; set; }
+        public class TCertificado
+        {
+            public byte[] Arquivo { get; set; }
+            public string SenhaCert { get; set; }
+        }
 
         #endregion Propriedades
+
+
     }
 
 }

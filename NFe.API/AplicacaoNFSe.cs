@@ -1,80 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
+using NFe.Components;
 using NFe.Service;
 using NFe.Settings;
+using static NFe.API.Domain.NFSeNota;
 
 namespace NFe.API
 {
     public class AplicacaoNFSe
     {
-        private XmlDocument documento { get; }
-        private readonly string metodo;
-        private readonly string cnpj;
-        private readonly string userWS;
-        private readonly string senhaWS;
+        private XmlDocument _documento { get; }
+        private readonly string _metodo;
+        private readonly ComandoTransmitir _comandoTransmitir;
+        
+        private X509Certificate2 _certificado;
+        private Empresa empresa;
 
-        #region CONSTRUTOR
-        public AplicacaoNFSe(XmlDocument documento, string metodo, string cnpj)
+        #region CONSTRUTOR       
+
+        public AplicacaoNFSe(XmlDocument documento, string metodo, ComandoTransmitir comandoTransmitir)
         {
-            this.documento = documento;
-            this.metodo = metodo;
-            this.cnpj = cnpj;
+            _documento = documento;
+            _metodo = metodo;
+            _comandoTransmitir = comandoTransmitir;
         }
 
-        public AplicacaoNFSe(XmlDocument documento, string metodo, string cnpj, string userWS, string senhaWS)
-        {
-            this.documento = documento;
-            this.metodo = metodo;
-            this.cnpj = cnpj;
-            this.userWS = userWS;
-            this.senhaWS = senhaWS;
-        }
         #endregion
 
+        #region MÉTODOS
+
+        public void CarregarDados()
+        {
+            empresa = new Empresa();
+            empresa.CNPJ = _comandoTransmitir.TDFe.TPrestador.FCnpj;
+            empresa.Nome = _comandoTransmitir.TDFe.TPrestador.FNomeFantasia;
+            empresa.UnidadeFederativaCodigo = Convert.ToInt32(_comandoTransmitir.TDFe.TPrestador.TEndereco.FCodigoMunicipio);
+
+            if (_comandoTransmitir.TDFe.TCertificado.Arquivo != null)
+            {
+                empresa.UsaCertificado = true;
+                empresa.CertificadoSenha = _comandoTransmitir.TDFe.TCertificado.SenhaCert;
+                _certificado = new X509Certificate2(_comandoTransmitir.TDFe.TCertificado.Arquivo, _comandoTransmitir.TDFe.TCertificado.SenhaCert);
+
+                empresa.X509Certificado = _certificado;
+            }
+            else
+            {
+                empresa.UsaCertificado = false;
+            }
+
+            empresa.Servico = TipoAplicativo.Nfse;
+            empresa.UsuarioWS = _comandoTransmitir.TDFe.TPrestador.FIdentificacaoPrestador._FUsuario;
+            empresa.SenhaWS = _comandoTransmitir.TDFe.TPrestador.FIdentificacaoPrestador.FSenha;
+
+            
+                                   
+        }        
 
         public XmlDocument ExecutaMetodo()
         {
             // get cnpj do xml
             XmlDocument resposta = null;
-            int emp = Empresas.FindConfEmpresaIndex(cnpj, Components.TipoAplicativo.Nfse); // 2 = nfse
+            //int emp = Empresas.FindConfEmpresaIndex(cnpj, Components.TipoAplicativo.Nfse); // 2 = nfse
 
-            switch (metodo.ToUpper())
+            switch (_metodo.ToUpper())
             {
                 case "CANCELARNFSE":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeCancelar(), "Execute");                                        
+                    Processar.ExecutaTarefaAPI(_documento, new Service.NFSe.TaskNFSeCancelar(), "Execute");
                     break;
                 case "CONSULTARLOTERPS":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeConsultarLoteRps (), "Execute");
+                    Processar.ExecutaTarefaAPI(_documento, new Service.NFSe.TaskNFSeConsultarLoteRps(), "Execute");
                     break;
                 case "CONSULTARNFSE":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeConsultar(), "Execute");
+                    Processar.ExecutaTarefaAPI(_documento, new Service.NFSe.TaskNFSeConsultar(), "Execute");
                     break;
-                                    
+
                 case "CONSULTARNFSEPORRPS":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeConsultarPorRps(), "Execute");
+                    Processar.ExecutaTarefaAPI(_documento, new Service.NFSe.TaskNFSeConsultarPorRps(), "Execute");
                     break;
 
-                case "CONSULTARNFSERECEBIDAS":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskConsultarNfseRecebidas(), "Execute");
-                    break;
+                //case "CONSULTARNFSERECEBIDAS":
+                //    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskConsultarNfseRecebidas(), "Execute");
+                //    break;
 
-                case "CONSULTARNFSETOMADOS":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskConsultarNfseTomados(), "Execute");
-                    break;
+                //case "CONSULTARNFSETOMADOS":
+                //    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskConsultarNfseTomados(), "Execute");
+                //    break;
 
-                case "CONSULTARSTATUSNFSE":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskConsultarStatusNFse(), "Execute");
-                    break;
+                //case "CONSULTARSTATUSNFSE":
+                //    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskConsultarStatusNFse(), "Execute");
+                //    break;
 
-                case "CONSULTASITUACAOLOTERPS":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeConsultaSituacaoLoteRps(), "Execute");
-                    break;
+                //case "CONSULTASITUACAOLOTERPS":
+                //    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeConsultaSituacaoLoteRps(), "Execute");
+                //    break;
 
                 case "RECEPCIONARLOTERPS":
-                    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeRecepcionarLoteRps(emp, documento), "Execute");
+                    var servico = new Service.NFSe.TaskNFSeRecepcionarLoteRps(_documento, _certificado, empresa);
+                    resposta = servico.ExecuteAPI();
                     break;
 
 
@@ -86,6 +113,7 @@ namespace NFe.API
         }
 
 
+        #endregion
 
     }
 }

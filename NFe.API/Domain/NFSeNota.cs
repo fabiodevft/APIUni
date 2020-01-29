@@ -58,11 +58,11 @@ namespace NFe.API.Domain
             public TDFe TDFe { get; set; }
         }
 
-        public class ComandoAcessar
+        public class ComandoAcessa
         {
-            public ComandoAcessar() { }
+            public ComandoAcessa() { }
 
-            public ComandoAcessar(string terminal, string chaveAcesso, string xml)
+            public ComandoAcessa(string terminal, string chaveAcesso, string xml)
             {
                 FnTerminal = terminal;
                 FChaveAcesso = chaveAcesso;
@@ -245,7 +245,6 @@ namespace NFe.API.Domain
 
             return this.Provedor.GerarXmlCancelaNota(this, numeroNFSe, motivo, numeroLote, codigoVerificacao);
         }
-
 
         public byte[] MontarXmlRetorno(NFSeNota nota, string numeroNFSe, string codigoVerificacao)
         {

@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace NFe.API.Controllers
-{
-    [Route("api/[controller]")]
+{    
     [ApiController]
     public class ValuesController : ControllerBase
     {

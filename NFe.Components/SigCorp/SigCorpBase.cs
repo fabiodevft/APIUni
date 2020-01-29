@@ -40,9 +40,9 @@ namespace NFe.Components.SigCorp
                                 sigCorpService = new RioGrandeRS.h.SigCorpH(tpAmb, PastaRetorno);
                                 break;
 
-                            case 3505500: //Barretos-SP
-                                sigCorpService = new BarretosSP.h.SigCorpH(tpAmb, PastaRetorno);
-                                break;
+                            //case 3505500: //Barretos-SP
+                            //    sigCorpService = new BarretosSP.h.SigCorpH(tpAmb, PastaRetorno);
+                            //    break;
 
                             case 3530706: //Mogi Guaçu-SP
                                 sigCorpService = new MogiGuacuSP.h.SigCorpH(tpAmb, PastaRetorno);
@@ -102,9 +102,9 @@ namespace NFe.Components.SigCorp
                                 sigCorpService = new RioGrandeRS.p.SigCorpP(tpAmb, PastaRetorno);
                                 break;
 
-                            case 3505500: //Barretos-SP
-                                sigCorpService = new BarretosSP.p.SigCorpP(tpAmb, PastaRetorno);
-                                break;
+                            //case 3505500: //Barretos-SP
+                            //    sigCorpService = new BarretosSP.p.SigCorpP(tpAmb, PastaRetorno);
+                            //    break;
 
                             case 3530706: //Mogi Guaçu-SP
                                 sigCorpService = new MogiGuacuSP.p.SigCorpP(tpAmb, PastaRetorno);

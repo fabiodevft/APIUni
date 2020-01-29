@@ -933,6 +933,14 @@ namespace NFe.Service
             tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
             cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
         }
+
+        public DadosEnvLoteRps(int emp)
+        {
+            tpEmis = Empresas.Configuracoes[emp].tpEmis;
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+        }
+
     }
 
     #endregion Classe com os dados do XML do Lote RPS

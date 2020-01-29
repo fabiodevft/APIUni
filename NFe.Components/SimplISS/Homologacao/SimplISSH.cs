@@ -125,15 +125,15 @@ namespace NFe.Components.SimplISS.Homologacao
         public override XmlDocument EmiteNF(XmlDocument xml)
         {
             string strResult = string.Empty;
-            switch (doc.DocumentElement.Name)
+            switch (xml.DocumentElement.Name)
             {
                 case "GerarNovaNfseEnvio":
-                    GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(file);
+                    GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(xml);
                     strResult = SerializarObjeto(Service.GerarNfse(envio, DadosConexao));
                     break;
 
                 case "EnviarLoteRpsEnvio":
-                    EnviarLoteRpsEnvio envioLote = DeserializarObjeto<EnviarLoteRpsEnvio>(file);
+                    EnviarLoteRpsEnvio envioLote = DeserializarObjeto<EnviarLoteRpsEnvio>(xml);
                     strResult = SerializarObjeto(Service.RecepcionarLoteRps(envioLote, DadosConexao));
                     break;
             }

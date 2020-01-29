@@ -421,8 +421,6 @@
     <Compile Include="SigCorp\MogiGuacuSP\h\WebInvokeAttribute.cs" />
     <Compile Include="SigCorp\MogiGuacuSP\h\WebMessageFormat.cs" />
     <Compile Include="SigCorp\MogiGuacuSP\p\SigCorpP.cs" />
-    <Compile Include="SigCorp\BarretosSP\h\SigCorpH.cs" />
-    <Compile Include="SigCorp\BarretosSP\p\SigCorpP.cs" />
     <Compile Include="SigCorp\RioGrandeRS\h\SigCorpH.cs" />
     <Compile Include="SigCorp\RioGrandeRS\p\SigCorpP.cs" />
     <Compile Include="SigCorp\IgarapeMG\h\SigCorpH.cs" />

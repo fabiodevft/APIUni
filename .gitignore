@@ -25,3 +25,7 @@
 /NFe.ConvertCFe/bin/Debug
 /MetroFramework/MetroFramework.Design/bin/Release
 /MetroFramework/MetroFramework.Fonts/bin/Release
+/MetroFramework/MetroFramework.Demo/bin/Release
+/.vs/config
+/NFe.API/bin/Debug/netcoreapp2.2
+/NFe.Full.API/bin

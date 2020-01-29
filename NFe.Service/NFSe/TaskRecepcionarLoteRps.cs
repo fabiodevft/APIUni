@@ -36,7 +36,7 @@ namespace NFe.Service.NFSe
 {
     public class TaskNFSeRecepcionarLoteRps : TaskAbst
     {
-        private int empAux;
+        private Empresa empAux;
 
         #region Objeto com os dados do XML de lote rps
 
@@ -58,13 +58,13 @@ namespace NFe.Service.NFSe
         }
 
 
-        public TaskNFSeRecepcionarLoteRps(int empresa, XmlDocument arquivo, X509Certificate certificado)
+        public TaskNFSeRecepcionarLoteRps( XmlDocument arquivo, X509Certificate certificado, Empresa empresa)
         {
             Servico = Servicos.NFSeRecepcionarLoteRps;
             ConteudoXML = arquivo;
             empAux = empresa;
             Certificado = certificado;
-        }
+        }        
 
         public XmlDocument ExecuteAPI()
         {
@@ -235,7 +235,7 @@ namespace NFe.Service.NFSe
                         //else
                         //    throw new Exception("Município de São Paulo-SP não dispõe de ambiente de homologação para envio de NFS-e em teste.");
 
-                        EncryptAssinatura(ConteudoXML);
+                        //EncryptAssinatura(ConteudoXML);
                         break;
 
                     #endregion
@@ -295,7 +295,7 @@ namespace NFe.Service.NFSe
                         }
                         else
                         {
-                            EncryptAssinatura(ConteudoXML);
+                            //EncryptAssinatura(ConteudoXML);
                         }
                         break;
 

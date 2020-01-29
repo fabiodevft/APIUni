@@ -7,11 +7,11 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using NFe.Components.Abstract;
-using NFe.Components.br.com.sigiss.testebarretos;
+//using NFe.Components.br.com.sigiss.testebarretos;
 
 namespace NFe.Components.SigCorp.BarretosSP.h
 {
-    public class SigCorpH: EmiteNFSeBase
+    public class SigCorpH : EmiteNFSeBase
     {
         WebServiceSigISS service = new WebServiceSigISS();
         public override string NameSpaces
@@ -163,7 +163,8 @@ namespace NFe.Components.SigCorp.BarretosSP.h
         #endregion
 
 
-       
+
         #endregion
+        
     }
 }

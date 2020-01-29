@@ -40,7 +40,6 @@ namespace NFe.Settings
             }
 
             //se no diretório de envio existir o arquivo "nome da máquina.locked" o diretório já está sendo atendido por alguma instancia do UniNFe
-
             foreach (Empresa emp in Empresas.Configuracoes)
             {
                 if (empresaX != null && (!empresaX.CNPJ.Equals(emp.CNPJ) || !empresaX.Servico.Equals(emp.Servico)))

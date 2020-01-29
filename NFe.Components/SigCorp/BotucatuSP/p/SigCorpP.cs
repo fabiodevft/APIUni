@@ -144,7 +144,7 @@ namespace NFe.Components.SigCorp.BotucatuSP.p
         {
             tcDadosPrestador oTcDadosPrestador = SigCorpGen.ReadXML<tcDadosPrestador>(xml);
             tcEstruturaDescricaoErros[] tcErros = null;
-            tcDadosNota result = service.ConsultarNotaPrestador(oTcDadosPrestador, SigCorpGen.NumeroNota(file, "urn:ConsultarNotaPrestador"), out tcErros);
+            tcDadosNota result = service.ConsultarNotaPrestador(oTcDadosPrestador, SigCorpGen.NumeroNota(xml, "urn:ConsultarNotaPrestador"), out tcErros);
             string strResult = base.CreateXML(result, tcErros);
 
             XmlDocument xmlRetorno = new XmlDocument();

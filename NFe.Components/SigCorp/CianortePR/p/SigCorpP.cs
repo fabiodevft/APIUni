@@ -39,7 +39,7 @@ namespace NFe.Components.SigCorp.CianortePR.p
         #region Métodos
         public override void EmiteNF(string file)
         {
-            tcDescricaoRps oTcDescricaoRps = ReadXML<tcDescricaoRps>(file);
+            tcDescricaoRps oTcDescricaoRps = SigCorpGen.ReadXML<tcDescricaoRps>(file);
             tcEstruturaDescricaoErros[] tcErros = null;
             tcRetornoNota result = service.GerarNota(oTcDescricaoRps, out tcErros);
             string strResult = base.CreateXML(result, tcErros);
@@ -49,7 +49,7 @@ namespace NFe.Components.SigCorp.CianortePR.p
 
         public override void CancelarNfse(string file)
         {
-            tcDadosCancelaNota oTcDadosCancela = ReadXML<tcDadosCancelaNota>(file);
+            tcDadosCancelaNota oTcDadosCancela = SigCorpGen.ReadXML<tcDadosCancelaNota>(file);
             tcEstruturaDescricaoErros[] tcErros = null;
             tcRetornoNota result = service.CancelarNota(oTcDadosCancela, out tcErros);
             string strResult = base.CreateXML(result, tcErros);
@@ -59,7 +59,7 @@ namespace NFe.Components.SigCorp.CianortePR.p
 
         public override void ConsultarLoteRps(string file)
         {
-            tcDadosConsultaNota oTcDadosPrestador = ReadXML<tcDadosConsultaNota>(file);
+            tcDadosConsultaNota oTcDadosPrestador = SigCorpGen.ReadXML<tcDadosConsultaNota>(file);
             tcEstruturaDescricaoErros[] tcErros = null;
             tcRetornoNota result = service.ConsultarNotaValida(oTcDadosPrestador, out tcErros);
             string strResult = base.CreateXML(result, tcErros);
