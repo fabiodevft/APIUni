@@ -934,11 +934,11 @@ namespace NFe.Service
             cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
         }
 
-        public DadosEnvLoteRps(int emp)
+        public DadosEnvLoteRps(Empresa emp)
         {
-            tpEmis = Empresas.Configuracoes[emp].tpEmis;
-            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
-            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+            tpEmis = emp.tpEmis;
+            tpAmb = emp.AmbienteCodigo;
+            cMunicipio = emp.UnidadeFederativaCodigo;
         }
 
     }

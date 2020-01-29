@@ -686,6 +686,11 @@ namespace NFe.Settings
             return DefinirWS(servico, emp, cUF, tpAmb, 1, PadroesNFSe.NaoIdentificado, string.Empty, string.Empty, cMunicipio);
         }
 
+        public static WebServiceProxy DefinirWS(Servicos servico, Empresa empresa, int cUF, int tpAmb, int cMunicipio)
+        {
+            return DefinirWS(servico, empresa, cUF, tpAmb, 1, PadroesNFSe.NaoIdentificado, string.Empty, string.Empty, cMunicipio);
+        }
+
         #endregion DefinirWS()
 
         #region DefinirWS()
@@ -763,6 +768,11 @@ namespace NFe.Settings
             return DefinirWS(servico, emp, cUF, tpAmb, tpEmis, padraoNFSe, string.Empty, string.Empty, cMunicipio);
         }
 
+        public static WebServiceProxy DefinirWS(Servicos servico, Empresa empresa, int cUF, int tpAmb, int tpEmis, PadroesNFSe padraoNFSe, int cMunicipio)
+        {
+            return DefinirWS(servico, empresa, cUF, tpAmb, tpEmis, padraoNFSe, string.Empty, string.Empty, cMunicipio);
+        }
+
         #endregion DefinirWS()
 
         #region DefinirWS()
@@ -815,6 +825,57 @@ namespace NFe.Settings
         }
 
         #endregion DefinirWS()
+
+        #region DefinirWS API()
+
+        /// <summary>
+        /// Definir o webservice que será utilizado para o envio do XML
+        /// </summary>
+        /// <param name="servico">Serviço que será executado</param>
+        /// <param name="emp">Index da empresa que será executado o serviço</param>
+        /// <param name="cUF">Código da UF</param>
+        /// <param name="tpAmb">Código do ambiente que será acessado</param>
+        /// <param name="tpEmis">Tipo de emissão do XML</param>
+        /// <param name="padraoNFSe">Padrão da NFSe</param>
+        /// <param name="versao">Versão do XML</param>
+        /// <param name="mod">Modelo do documento fiscal (55=NFe, 65=NFCe, etc...)</param>
+        /// <returns>Retorna o objeto do WebService</returns>
+        private static WebServiceProxy DefinirWS(Servicos servico, Empresa emp, int cUF, int tpAmb, int tpEmis, PadroesNFSe padraoNFSe, string versao, string mod, int cMunicipio)
+        {
+            WebServiceProxy wsProxy = null;
+            string key = servico + " " + cUF + " " + tpAmb + " " + tpEmis + (!string.IsNullOrEmpty(versao) ? " " + versao : "") + (!string.IsNullOrEmpty(mod) ? " " + mod : "");
+
+            lock (Smf.WebProxy)
+            {
+                if (emp.WSProxy.ContainsKey(key))
+                {
+                    ServicePointManager.SecurityProtocol = WebServiceProxy.DefinirProtocoloSeguranca(cUF, tpAmb, tpEmis, padraoNFSe, servico);
+
+                    wsProxy = emp.WSProxy[key];
+                }
+                else
+                {
+                    Thread.Sleep(1000); //1 segundo
+
+                    //Definir a URI para conexão com o Webservice
+                    string Url = ConfiguracaoApp.DefLocalWSDL(cUF, tpAmb, tpEmis, versao, servico, mod);
+
+                    wsProxy = new WebServiceProxy(cUF,
+                                                  Url,
+                                                  emp.X509Certificado,
+                                                  padraoNFSe,
+                                                  (tpAmb == (int)TipoAmbiente.taHomologacao),
+                                                  servico,
+                                                  tpEmis,
+                                                  cMunicipio);
+
+                    emp.WSProxy.Add(key, wsProxy);
+                }
+            }
+            return wsProxy;
+        }
+
+        #endregion
 
         #region DefLocalWSDL()
 

@@ -58,12 +58,12 @@ namespace NFe.Service.NFSe
         }
 
 
-        public TaskNFSeRecepcionarLoteRps( XmlDocument arquivo, X509Certificate certificado, Empresa empresa)
+        public TaskNFSeRecepcionarLoteRps(XmlDocument arquivo, X509Certificate certificado, Empresa empresa)
         {
             Servico = Servicos.NFSeRecepcionarLoteRps;
-            ConteudoXML = arquivo;
-            empAux = empresa;
+            ConteudoXML = arquivo;            
             Certificado = certificado;
+            empAux = empresa;            
         }        
 
         public XmlDocument ExecuteAPI()
@@ -86,6 +86,7 @@ namespace NFe.Service.NFSe
                 {
                     wsProxy = ConfiguracaoApp.DefinirWS(Servico, empAux, oDadosEnvLoteRps.cMunicipio, oDadosEnvLoteRps.tpAmb, oDadosEnvLoteRps.tpEmis, padraoNFSe,
                         oDadosEnvLoteRps.cMunicipio);
+
                     if (wsProxy != null)
                         envLoteRps = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
                 }
@@ -101,21 +102,21 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.IPM:
 
                         //SALVAR UM ARQUIVO TEMPORARIO, POIS O WEBSERVIE OBRIGA TER UM ARQUIVO FISICO 
-                        var caminhoGravar = Empresas.Configuracoes[empAux].PastaXmlEnviado;
-                        ConteudoXML.Save(string.Concat(caminhoGravar, @"\", Empresas.Configuracoes[empAux].CNPJ, "-env"));
+                        var caminhoGravar = empAux.PastaXmlEnviado;
+                        ConteudoXML.Save(string.Concat(caminhoGravar, @"\", empAux.CNPJ, "-env"));
 
                         //código da cidade da receita federal, este arquivo pode ser encontrado em ~\uninfe\doc\Codigos_Cidades_Receita_Federal.xls</para>
                         //O código da cidade está hardcoded pois ainda está sendo usado apenas para campo mourão
-                        IPM ipm = new IPM((TipoAmbiente)Empresas.Configuracoes[empAux].AmbienteCodigo,
-                                          Empresas.Configuracoes[empAux].PastaXmlRetorno,
-                                          Empresas.Configuracoes[empAux].UsuarioWS,
-                                          Empresas.Configuracoes[empAux].SenhaWS,
+                        IPM ipm = new IPM((TipoAmbiente)empAux.AmbienteCodigo,
+                                          empAux.PastaXmlRetorno,
+                                          empAux.UsuarioWS,
+                                          empAux.SenhaWS,
                                           oDadosEnvLoteRps.cMunicipio);
 
                         if (ConfiguracaoApp.Proxy)
                             ipm.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
 
-                        var ipmResult = ipm.EmiteNFAPI(string.Concat(caminhoGravar, @"\", Empresas.Configuracoes[empAux].CNPJ, "-env"));
+                        var ipmResult = ipm.EmiteNFAPI(string.Concat(caminhoGravar, @"\", empAux.CNPJ, "-env"));
 
                         //LER O ARQUIVO FISICO E ADICIONAR NO OBJETO DE RETORNO
 
@@ -153,16 +154,16 @@ namespace NFe.Service.NFSe
                     #region Betha
 
                     case PadroesNFSe.BETHA:
-
+                        //Parei aqui - Fabio
                         string versao = Functions.GetAttributeXML("LoteRps", "versao", ConteudoXML);
 
                         if (versao.Equals("2.02"))
                         {
                             padraoNFSe = PadroesNFSe.BETHA202;
-                            Components.Betha.NewVersion.Betha betha = new Components.Betha.NewVersion.Betha((TipoAmbiente)Empresas.Configuracoes[empAux].AmbienteCodigo,
+                            Components.Betha.NewVersion.Betha betha = new Components.Betha.NewVersion.Betha((TipoAmbiente)empAux.AmbienteCodigo,
                                 oDadosEnvLoteRps.cMunicipio,
-                                Empresas.Configuracoes[empAux].UsuarioWS,
-                                Empresas.Configuracoes[empAux].SenhaWS,
+                                empAux.UsuarioWS,
+                                empAux.SenhaWS,
                                 ConfiguracaoApp.ProxyUsuario,
                                 ConfiguracaoApp.ProxySenha,
                                 ConfiguracaoApp.ProxyServidor);
