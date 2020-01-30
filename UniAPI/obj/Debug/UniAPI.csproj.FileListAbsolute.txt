@@ -1,0 +1,4 @@
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\UniAPI.csprojAssemblyReference.cache
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\UniAPI.csproj.CoreCompileInputs.cache
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.csprojAssemblyReference.cache
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.csproj.CoreCompileInputs.cache

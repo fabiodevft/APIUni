@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Unimake\UniNFe\</OutputPath>
+    <OutputPath>C:\Unimake\API\UniNFe\</OutputPath>
     <DefineConstants>TRACE;DEBUG;_fw46</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -4625,17 +4625,17 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PSantaIsabelSP-CECAM.wsdl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-	<EmbeddedResource Include="NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Homologacao\HEntreIjuisRS-PRONIN.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Producao\PEntreIjuisRS-PRONIN.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Homologacao\HCoronelFabricianoMG-GOVDIGITAL.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Producao\PCoronelFabricianoMG-GOVDIGITAL.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Homologacao\HVargemGrandePaulistaSP-GOVDIGITAL.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Producao\PVargemGrandePaulistaSP-GOVDIGITAL.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Producao\PBlumenauSC.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Homologacao\HBlumenauSC.wsdl" />
-<EmbeddedResource Include="NFse\WSDL\Producao\PPeixotoAzevedoMT-COPLAN.WSDL" />
-<EmbeddedResource Include="NFse\WSDL\Homologacao\HPeixotoAzevedoMT-COPLAN.WSDL" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HEntreIjuisRS-PRONIN.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PEntreIjuisRS-PRONIN.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HCoronelFabricianoMG-GOVDIGITAL.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PCoronelFabricianoMG-GOVDIGITAL.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HVargemGrandePaulistaSP-GOVDIGITAL.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PVargemGrandePaulistaSP-GOVDIGITAL.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PBlumenauSC.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBlumenauSC.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PPeixotoAzevedoMT-COPLAN.WSDL" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HPeixotoAzevedoMT-COPLAN.WSDL" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PCamacariBA.wsdl">

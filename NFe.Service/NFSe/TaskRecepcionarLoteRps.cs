@@ -1040,13 +1040,10 @@ namespace NFe.Service.NFSe
                 return xmlRetorno;
 
             }
-            catch (Exception)
+            catch (Exception erro)
             {
-
-                throw;
-            }
-
-            return null;
+                return RetornoErroERP.GeraArquivoErroERP(erro.Message, "EnviarLoteRps");
+            }            
         }
 
 

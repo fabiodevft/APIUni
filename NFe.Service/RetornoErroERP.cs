@@ -34,5 +34,28 @@ namespace NFe.Service
         }
 
 
+        public static XmlDocument GeraArquivoErroERP(string strErro, string metodo)
+        {
+            XmlDocument document = new XmlDocument();
+
+            XmlNode docNode = document.CreateXmlDeclaration("1.0", "utf-8", null);
+            document.AppendChild(docNode);
+
+            var gerarNotaNode = document.CreateElement(@""+ metodo + "Resposta");            
+            document.AppendChild(gerarNotaNode);
+
+            XmlNode nodeItemErro = document.CreateElement("Erro");
+            nodeItemErro.AppendChild(document.CreateTextNode(strErro));
+            gerarNotaNode.AppendChild(nodeItemErro);
+
+            //XmlNode nodeItemMensagem = document.CreateElement("Mensagem");
+            //nodeItemMensagem.AppendChild(document.CreateTextNode(strMesagemErro));
+            //gerarNotaNode.AppendChild(nodeItemMensagem);
+
+            return document;
+
+        }
+
+
     }
 }

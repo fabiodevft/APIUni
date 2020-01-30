@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNFe", "uninfe\UniNFe.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.SAT", "NFe.ConvertCFe\NFe.SAT.csproj", "{5632878D-C7E7-4CFF-9FE1-06E7222532AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Full.API", "NFe.Full.API\NFe.Full.API.csproj", "{D1BB1ECF-7922-4478-AC78-66CE3D41F24D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniAPI", "UniAPI\UniAPI.csproj", "{D1BB1ECF-7922-4478-AC78-66CE3D41F24D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,9 @@
+C:\Unimake\API\UniNFe\logounimake.png
+C:\Unimake\API\UniNFe\NFe.Full.API.dll.config
+C:\Unimake\API\UniNFe\NFe.Full.API.dll
+C:\Unimake\API\UniNFe\NFe.Full.API.pdb
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.csprojAssemblyReference.cache
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.csproj.CoreCompileInputs.cache
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.csproj.CopyComplete
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.dll
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.pdb

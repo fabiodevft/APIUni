@@ -1,2 +1,0 @@
-D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.csprojAssemblyReference.cache
-D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\NFe.Full.API.csproj.CoreCompileInputs.cache
