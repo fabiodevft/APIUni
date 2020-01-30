@@ -38,22 +38,12 @@ namespace NFe.Certificado
         /// Autor: Wandrey Mundin Ferreira
         /// Data: 04/06/2008
         /// </remarks>
-        private void Assinar(string arqXMLAssinar,
-            string tagAssinatura,
-            string tagAtributoId,
-            X509Certificate2 x509Cert,
-            int empresa,
-            AlgorithmType algorithmType = AlgorithmType.Sha1, bool comURI = true)
+        private void Assinar(string arqXMLAssinar, string tagAssinatura, string tagAtributoId, X509Certificate2 x509Cert, int empresa, AlgorithmType algorithmType = AlgorithmType.Sha1, bool comURI = true)
         {
             Assinar(new XmlDocument(), arqXMLAssinar, tagAssinatura, tagAtributoId, x509Cert, empresa, algorithmType, comURI);
         }
 
-        private void Assinar(XmlDocument conteudoXML,
-            string arqXMLAssinar,
-            string tagAssinatura,
-            string tagAtributoId,
-            X509Certificate2 x509Cert,
-            int empresa,
+        private void Assinar(XmlDocument conteudoXML, string arqXMLAssinar, string tagAssinatura, string tagAtributoId, X509Certificate2 x509Cert, int empresa,
             AlgorithmType algorithmType = AlgorithmType.Sha1, bool comURI = true)
         {
             conteudoXML.PreserveWhitespace = true;
@@ -105,12 +95,7 @@ namespace NFe.Certificado
         /// Autor: Wandrey Mundin Ferreira
         /// Data: 04/06/2008
         /// </remarks>
-        private void Assinar(XmlDocument conteudoXML,
-            string tagAssinatura,
-            string tagAtributoId,
-            X509Certificate2 x509Cert,
-            int empresa,
-            AlgorithmType algorithmType,
+        private void Assinar(XmlDocument conteudoXML, string tagAssinatura, string tagAtributoId, X509Certificate2 x509Cert, int empresa, AlgorithmType algorithmType,
             bool comURI)
         {
             try
@@ -415,6 +400,11 @@ namespace NFe.Certificado
             }
         }
 
+        public void AssinarAPI(string nomeArquivoXML, Empresa empAux, int cMunicipio)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AssinarLoteESocial(string arquivoXML, int emp)
         {
             try
@@ -540,12 +530,7 @@ namespace NFe.Certificado
             }
         }
 
-        public bool TestarProviderCertificado(string tempFile,
-            string tagAssinatura,
-            string tagAtributo,
-            X509Certificate2 certificado,
-            int codEmp,
-            string pin)
+        public bool TestarProviderCertificado(string tempFile, string tagAssinatura, string tagAtributo, X509Certificate2 certificado, int codEmp, string pin)
         {
             string _pin = pin;
 
@@ -609,5 +594,6 @@ namespace NFe.Certificado
         }
 
         #endregion Assinado()
+
     }
 }

@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssinaturaDigital.cs" />
+    <Compile Include="AssinaturaDigitalAPI.cs" />
     <Compile Include="CertificadoDigital.cs" />
     <Compile Include="CertificadoProviders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

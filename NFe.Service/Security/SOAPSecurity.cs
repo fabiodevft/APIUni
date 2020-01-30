@@ -48,6 +48,21 @@ namespace NFe.Components.Security
 #endif
         }
 
-#endregion Public Methods
+
+        public static void SignUsingCredentials(Empresa emp, object objectToSign)
+        {
+#if _fw46
+
+            if (!(((dynamic)objectToSign).ClientCredentials is ClientCredentials clientCredentials))
+                return;
+
+            clientCredentials.UserName.UserName = emp.UsuarioWS;
+            clientCredentials.UserName.Password = emp.SenhaWS;
+#else
+            throw new MunicipioSemSuporteAoNETFramework35Exception();
+#endif
+        }
+
+        #endregion Public Methods
     }
 }
