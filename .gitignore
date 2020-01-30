@@ -29,3 +29,5 @@
 /.vs/config
 /NFe.API/bin/Debug/netcoreapp2.2
 /NFe.Full.API/bin
+/UniAPI/bin
+/UniAPI/obj/Debug

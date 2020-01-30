@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NFe.Components;
+using NFe.Service.NFSe;
+using NFe.Settings;
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using static UniAPI.Domain.NFSeNota;
@@ -91,8 +94,9 @@ namespace UniAPI
                 //    Processar.ExecutaTarefaAPI(documento, new Service.NFSe.TaskNFSeConsultaSituacaoLoteRps(), "Execute");
                 //    break;
 
-                case "RECEPCIONARLOTERPS":
-                    var servico = new Service.NFSe.TaskNFSeRecepcionarLoteRps(_documento, _certificado, empresa);
+                case "RECEPCIONARLOTERPS":                    
+                    var servico = new TaskNFSeRecepcionarLoteRps(_documento, _certificado, empresa);
+
                     resposta = servico.ExecuteAPI();
                     break;
 

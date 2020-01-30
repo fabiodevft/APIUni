@@ -2,3 +2,10 @@ D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\UniAPI.csprojAssembl
 D:\DESENVOLVIMENTO\UNINFE\API\APIUni\NFe.Full.API\obj\Debug\UniAPI.csproj.CoreCompileInputs.cache
 D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.csprojAssemblyReference.cache
 D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.csproj.CoreCompileInputs.cache
+C:\Unimake\API\UniNFe\logounimake.png
+C:\Unimake\API\UniNFe\UniAPI.dll.config
+C:\Unimake\API\UniNFe\UniAPI.dll
+C:\Unimake\API\UniNFe\UniAPI.pdb
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.csproj.CopyComplete
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.dll
+D:\DESENVOLVIMENTO\UNINFE\API\APIUni\UniAPI\obj\Debug\UniAPI.pdb
